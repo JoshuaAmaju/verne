@@ -10,6 +10,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@eva-design/eva": "^2.1.1",
+    "@ui-kitten/components": "^5.1.2",
     "axios": "^0.26.1",
     "native-base": "^3.3.11",
     "react": "17.0.2",

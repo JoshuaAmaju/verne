@@ -1,0 +1,13 @@
+{
+  "strict": {
+    "text-font-family": "Besley-Regular",
+
+    "text-heading-1-font-size": 20,
+    "text-heading-1-font-weight": "bold",
+    "text-heading-1-font-family": "Besley-Medium",
+
+    "text-heading-2-font-size": 16,
+    "text-heading-2-font-weight": "bold",
+    "text-heading-2-font-family": "Besley-Medium"
+  }
+}

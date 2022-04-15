@@ -14,6 +14,20 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-verne-verneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-verne-verneTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		78087310550847BEB7590FCB /* Besley-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FEE4CFE559774BEEA0B611DC /* Besley-Italic-VariableFont_wght.ttf */; };
+		3F8E0D2970984A4DB81EE524 /* Besley-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6BEF0AE3D0A478EA6E3AC01 /* Besley-VariableFont_wght.ttf */; };
+		3CB14CC761784444A52B8F20 /* Besley-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36402B43809F4D499A8F2257 /* Besley-Black.ttf */; };
+		55D4ACB314FC4C0590648837 /* Besley-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8330FD2DD004C9899DCDCB6 /* Besley-BlackItalic.ttf */; };
+		11A976DCA0B640659E15B276 /* Besley-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99C276E2922B497D8EA7EEB5 /* Besley-Bold.ttf */; };
+		3054A8CC2ED14883B1FAE4B9 /* Besley-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DDCD60609A474F938D006290 /* Besley-BoldItalic.ttf */; };
+		5BDBE41D1E424CA894C361A3 /* Besley-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ED4C8E25DDB44DBEA2F4D73B /* Besley-ExtraBold.ttf */; };
+		38806CEA9AFC4E788955C26D /* Besley-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB15C4CD801340489531F7D3 /* Besley-ExtraBoldItalic.ttf */; };
+		E6160F96D342492FB847DA48 /* Besley-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 110B87B017AF4A1FB8457CD2 /* Besley-Italic.ttf */; };
+		BB1FCCA25B4E4892B33D1DAA /* Besley-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA2DFFE7AE54497EACD5AA44 /* Besley-Medium.ttf */; };
+		EB4419940AB34044BA5B427D /* Besley-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E8A0C3CFD562480B934D7419 /* Besley-MediumItalic.ttf */; };
+		DCCB1DDC63A2488C83095A01 /* Besley-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 654B33BBA3A2450293B2DB07 /* Besley-Regular.ttf */; };
+		B858366BEE484CCFAF87B7BF /* Besley-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4985A41F8F8646D2B33D6873 /* Besley-SemiBold.ttf */; };
+		17B4D65877764168A4080225 /* Besley-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBD599012E704D3E8684F40B /* Besley-SemiBoldItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +58,20 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = verne/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-verne-verneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verne-verneTests.release.xcconfig"; path = "Target Support Files/Pods-verne-verneTests/Pods-verne-verneTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		FEE4CFE559774BEEA0B611DC /* Besley-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Besley-Italic-VariableFont_wght.ttf"; path = "../assets/fonts/Besley/Besley-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A6BEF0AE3D0A478EA6E3AC01 /* Besley-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Besley-VariableFont_wght.ttf"; path = "../assets/fonts/Besley/Besley-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		36402B43809F4D499A8F2257 /* Besley-Black.ttf */ = {isa = PBXFileReference; name = "Besley-Black.ttf"; path = "../assets/fonts/Besley/static/Besley-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D8330FD2DD004C9899DCDCB6 /* Besley-BlackItalic.ttf */ = {isa = PBXFileReference; name = "Besley-BlackItalic.ttf"; path = "../assets/fonts/Besley/static/Besley-BlackItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		99C276E2922B497D8EA7EEB5 /* Besley-Bold.ttf */ = {isa = PBXFileReference; name = "Besley-Bold.ttf"; path = "../assets/fonts/Besley/static/Besley-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DDCD60609A474F938D006290 /* Besley-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Besley-BoldItalic.ttf"; path = "../assets/fonts/Besley/static/Besley-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		ED4C8E25DDB44DBEA2F4D73B /* Besley-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Besley-ExtraBold.ttf"; path = "../assets/fonts/Besley/static/Besley-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CB15C4CD801340489531F7D3 /* Besley-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; name = "Besley-ExtraBoldItalic.ttf"; path = "../assets/fonts/Besley/static/Besley-ExtraBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		110B87B017AF4A1FB8457CD2 /* Besley-Italic.ttf */ = {isa = PBXFileReference; name = "Besley-Italic.ttf"; path = "../assets/fonts/Besley/static/Besley-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AA2DFFE7AE54497EACD5AA44 /* Besley-Medium.ttf */ = {isa = PBXFileReference; name = "Besley-Medium.ttf"; path = "../assets/fonts/Besley/static/Besley-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E8A0C3CFD562480B934D7419 /* Besley-MediumItalic.ttf */ = {isa = PBXFileReference; name = "Besley-MediumItalic.ttf"; path = "../assets/fonts/Besley/static/Besley-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		654B33BBA3A2450293B2DB07 /* Besley-Regular.ttf */ = {isa = PBXFileReference; name = "Besley-Regular.ttf"; path = "../assets/fonts/Besley/static/Besley-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4985A41F8F8646D2B33D6873 /* Besley-SemiBold.ttf */ = {isa = PBXFileReference; name = "Besley-SemiBold.ttf"; path = "../assets/fonts/Besley/static/Besley-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BBD599012E704D3E8684F40B /* Besley-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "Besley-SemiBoldItalic.ttf"; path = "../assets/fonts/Besley/static/Besley-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +150,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				AED6657F8E4C486AB9B416C3 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +176,28 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		AED6657F8E4C486AB9B416C3 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				FEE4CFE559774BEEA0B611DC /* Besley-Italic-VariableFont_wght.ttf */,
+				A6BEF0AE3D0A478EA6E3AC01 /* Besley-VariableFont_wght.ttf */,
+				36402B43809F4D499A8F2257 /* Besley-Black.ttf */,
+				D8330FD2DD004C9899DCDCB6 /* Besley-BlackItalic.ttf */,
+				99C276E2922B497D8EA7EEB5 /* Besley-Bold.ttf */,
+				DDCD60609A474F938D006290 /* Besley-BoldItalic.ttf */,
+				ED4C8E25DDB44DBEA2F4D73B /* Besley-ExtraBold.ttf */,
+				CB15C4CD801340489531F7D3 /* Besley-ExtraBoldItalic.ttf */,
+				110B87B017AF4A1FB8457CD2 /* Besley-Italic.ttf */,
+				AA2DFFE7AE54497EACD5AA44 /* Besley-Medium.ttf */,
+				E8A0C3CFD562480B934D7419 /* Besley-MediumItalic.ttf */,
+				654B33BBA3A2450293B2DB07 /* Besley-Regular.ttf */,
+				4985A41F8F8646D2B33D6873 /* Besley-SemiBold.ttf */,
+				BBD599012E704D3E8684F40B /* Besley-SemiBoldItalic.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -244,6 +295,20 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				78087310550847BEB7590FCB /* Besley-Italic-VariableFont_wght.ttf in Resources */,
+				3F8E0D2970984A4DB81EE524 /* Besley-VariableFont_wght.ttf in Resources */,
+				3CB14CC761784444A52B8F20 /* Besley-Black.ttf in Resources */,
+				55D4ACB314FC4C0590648837 /* Besley-BlackItalic.ttf in Resources */,
+				11A976DCA0B640659E15B276 /* Besley-Bold.ttf in Resources */,
+				3054A8CC2ED14883B1FAE4B9 /* Besley-BoldItalic.ttf in Resources */,
+				5BDBE41D1E424CA894C361A3 /* Besley-ExtraBold.ttf in Resources */,
+				38806CEA9AFC4E788955C26D /* Besley-ExtraBoldItalic.ttf in Resources */,
+				E6160F96D342492FB847DA48 /* Besley-Italic.ttf in Resources */,
+				BB1FCCA25B4E4892B33D1DAA /* Besley-Medium.ttf in Resources */,
+				EB4419940AB34044BA5B427D /* Besley-MediumItalic.ttf in Resources */,
+				DCCB1DDC63A2488C83095A01 /* Besley-Regular.ttf in Resources */,
+				B858366BEE484CCFAF87B7BF /* Besley-SemiBold.ttf in Resources */,
+				17B4D65877764168A4080225 /* Besley-SemiBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
