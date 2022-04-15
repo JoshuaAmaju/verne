@@ -1,27 +1,27 @@
 import * as eva from '@eva-design/eva';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ApplicationProvider} from '@ui-kitten/components';
 import {NativeBaseProvider} from 'native-base';
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import Onboarding from './screens/onboarding/intro';
 import Setup from './screens/onboarding/setup';
-import {ONBOARDING} from './shared/constants';
+import Signup from './screens/signup';
+import onboardedStore, {selector} from './shared/stores/onborading';
 import evaTheme from './theme/eva.json';
 import mapping from './theme/mapping.json';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [onboarded, setOnboarded] = useState(false);
+  const onboarded = onboardedStore(selector);
 
-  useEffect(() => {
-    AsyncStorage.getItem(ONBOARDING).then(n => {
-      if (n) setOnboarded(true);
-    });
-  }, []);
+  // useEffect(() => {
+  //   AsyncStorage.getItem(ONBOARDING).then(n => {
+  //     if (n) setOnboarded(true);
+  //   });
+  // }, []);
 
   useLayoutEffect(() => {
     SplashScreen.hide();
@@ -43,7 +43,9 @@ export default function App() {
               </Stack.Group>
             )}
 
-            {/* <Stack.Screen name="Main" component={Home} /> */}
+            <Stack.Group screenOptions={{headerShown: false}}>
+              <Stack.Screen name="Signup" component={Signup} />
+            </Stack.Group>
           </Stack.Navigator>
         </NavigationContainer>
 

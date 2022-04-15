@@ -11,30 +11,31 @@ import {
   TouchableNativeFeedback,
   View,
 } from 'react-native';
+import onboardedStore, {set, selector} from '../../shared/stores/onborading';
 
 const {width} = Dimensions.get('screen');
 
 const SLIDES = [
   {
-    image: require('../../../assets/png/img.jpg'),
+    image: require('../../assets/png/img.jpg'),
     title: 'Stories available in audio',
     caption:
       'For a multitasker, you can listen to all of your favorite stories while you work. You can also customize the voice that reads to you.',
   },
   {
-    image: require('../../../assets/png/unnamed.png'),
+    image: require('../../assets/png/unnamed.png'),
     title: 'Closely knit communities',
     caption:
       'Join communities and talk about your favorites. You can schedule and have conversations with your community via audio',
   },
   {
-    image: require('../../../assets/png/img.jpg'),
+    image: require('../../assets/png/img.jpg'),
     title: 'Offline mode available',
     caption:
       'You can save your stories and read them later while off the internet',
   },
   {
-    image: require('../../../assets/png/img.jpg'),
+    image: require('../../assets/png/img.jpg'),
     title: 'Write and Publish',
     caption:
       'You get a canvas to write your stories, import images,save and export as a file type. Share your stories to our millions of readers.',
@@ -45,6 +46,7 @@ export default function Onboarding() {
   const nav = useNavigation();
   const ref = createRef<FlatList>();
   const [index, setIndex] = useState(0);
+  const onboarded = onboardedStore(selector);
 
   return (
     <>
@@ -107,7 +109,10 @@ export default function Onboarding() {
           <View>
             <Button
               style={{borderRadius: 100}}
-              onPress={() => nav.navigate('Signup')}>
+              onPress={() => {
+                nav.navigate('Signup');
+                set(true);
+              }}>
               Join for free
             </Button>
 
@@ -116,9 +121,13 @@ export default function Onboarding() {
               space={1}
               alignItems="center"
               justifyContent="center">
-              <Text>I already have an account.</Text>
+              <Text style={{color: '#ffffff'}}>I already have an account.</Text>
 
-              <TouchableNativeFeedback onPress={() => nav.navigate('Login')}>
+              <TouchableNativeFeedback
+                onPress={() => {
+                  nav.navigate('Login');
+                  set(true);
+                }}>
                 <Text style={styles.link}>Login</Text>
               </TouchableNativeFeedback>
             </HStack>
