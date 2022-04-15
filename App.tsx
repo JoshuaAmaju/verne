@@ -6,7 +6,7 @@ import {
   TopNavigation,
 } from '@ui-kitten/components';
 import {NativeBaseProvider} from 'native-base';
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import {View} from 'react-native';
 import {Link, NativeRouter, Route, Routes} from 'react-router-native';
 import Notification from './assets/icons/notification.svg';
@@ -15,6 +15,7 @@ import * as header from './shared/components/Header';
 import IconButton from './shared/components/IconButton';
 import evaTheme from './theme/eva.json';
 import mapping from './theme/mapping.json';
+import SplashScreen from 'react-native-splash-screen';
 
 const Home = () => {
   return (
@@ -63,6 +64,10 @@ const About = () => {
 };
 
 export default function App() {
+  useLayoutEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
   return (
     <ApplicationProvider
       {...eva}
