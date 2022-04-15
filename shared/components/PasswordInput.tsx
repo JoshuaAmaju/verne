@@ -1,6 +1,6 @@
 import {InputProps, Text} from '@ui-kitten/components';
 import React, {useCallback, useState} from 'react';
-import {StyleSheet, TouchableNativeFeedback} from 'react-native';
+import {TouchableNativeFeedback} from 'react-native';
 import colors from '../../theme/colors';
 import Input from './Input';
 
@@ -14,7 +14,7 @@ export default function PasswordInput({style, ...props}: InputProps) {
   return (
     <Input
       {...props}
-      style={[style, styles.input]}
+      style={style}
       secureTextEntry={isSecureEntry}
       accessoryRight={() => (
         <TouchableNativeFeedback onPress={toggle}>
@@ -26,13 +26,3 @@ export default function PasswordInput({style, ...props}: InputProps) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  input: {
-    borderRadius: 0,
-    borderTopWidth: 0,
-    borderLeftWidth: 0,
-    borderRightWidth: 0,
-    backgroundColor: 'transparent',
-  },
-});
