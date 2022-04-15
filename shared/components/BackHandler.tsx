@@ -2,7 +2,13 @@ import {useEffect} from 'react';
 import {BackHandler as RNBackHandler} from 'react-native';
 import {useLocation, useNavigate} from 'react-router-native';
 
-export default function BackHandler({children}: {children?: JSX.Element}) {
+export default function BackHandler({
+  children,
+  onBackPress,
+}: {
+  children?: JSX.Element;
+  onBackPress?: () => void;
+}) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -10,7 +16,7 @@ export default function BackHandler({children}: {children?: JSX.Element}) {
     const subscription = RNBackHandler.addEventListener(
       'hardwareBackPress',
       () => {
-        navigate('..');
+        onBackPress?.() ?? navigate('..');
         return location.pathname === '/' ? false : true;
       },
     );
@@ -18,7 +24,7 @@ export default function BackHandler({children}: {children?: JSX.Element}) {
     return () => {
       subscription.remove();
     };
-  }, [location.pathname, navigate]);
+  }, [location.pathname, navigate, onBackPress]);
 
   return children ?? null;
 }
