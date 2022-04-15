@@ -8,6 +8,7 @@ import SplashScreen from 'react-native-splash-screen';
 import Onboarding from './screens/onboarding/intro';
 import Setup from './screens/onboarding/setup';
 import Signup from './screens/signup';
+import Login from './screens/login';
 import onboardedStore, {selector} from './shared/stores/onborading';
 import evaTheme from './theme/eva.json';
 import mapping from './theme/mapping.json';
@@ -45,6 +46,7 @@ export default function App() {
 
             <Stack.Group screenOptions={{headerShown: false}}>
               <Stack.Screen name="Signup" component={Signup} />
+              <Stack.Screen name="Login" component={Login} />
             </Stack.Group>
           </Stack.Navigator>
         </NavigationContainer>
