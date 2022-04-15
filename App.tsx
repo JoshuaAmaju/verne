@@ -1,69 +1,28 @@
 import * as eva from '@eva-design/eva';
-import {
-  ApplicationProvider,
-  Layout,
-  Text,
-  TopNavigation,
-} from '@ui-kitten/components';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {ApplicationProvider} from '@ui-kitten/components';
 import {NativeBaseProvider} from 'native-base';
-import React, {useLayoutEffect} from 'react';
-import {View} from 'react-native';
-import {Link, NativeRouter, Route, Routes} from 'react-router-native';
-import Notification from './assets/icons/notification.svg';
-import BackHandler from './shared/components/BackHandler';
-import * as header from './shared/components/Header';
-import IconButton from './shared/components/IconButton';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
+import SplashScreen from 'react-native-splash-screen';
+import Onboarding from './screens/onboarding/intro';
+import Setup from './screens/onboarding/setup';
+import {ONBOARDING} from './shared/constants';
 import evaTheme from './theme/eva.json';
 import mapping from './theme/mapping.json';
-import SplashScreen from 'react-native-splash-screen';
 
-const Home = () => {
-  return (
-    <Layout style={{flex: 1}}>
-      <TopNavigation title={() => <header.Title>Home</header.Title>} />
-
-      <View>
-        <Link to="/about">
-          <Text>Go to about</Text>
-        </Link>
-
-        <Link to="/">
-          <Text>Go to Nested 1</Text>
-        </Link>
-
-        <Link to="/2">
-          <Text>Go to Nested 2</Text>
-        </Link>
-
-        <Routes>
-          <Route path="/" element={<Text>Nested 1</Text>} />
-          <Route path="/2" element={<Text>Nested 2</Text>} />
-        </Routes>
-      </View>
-    </Layout>
-  );
-};
-
-const About = () => {
-  return (
-    <Layout style={{flex: 1}}>
-      <TopNavigation
-        alignment="center"
-        accessoryLeft={header.BackButton}
-        title={() => <header.CenterTitle>About</header.CenterTitle>}
-        accessoryRight={() => (
-          <>
-            <IconButton icon={Notification} />
-          </>
-        )}
-      />
-
-      <Text>About</Text>
-    </Layout>
-  );
-};
+const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [onboarded, setOnboarded] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getItem(ONBOARDING).then(n => {
+      if (n) setOnboarded(true);
+    });
+  }, []);
+
   useLayoutEffect(() => {
     SplashScreen.hide();
   }, []);
@@ -72,16 +31,31 @@ export default function App() {
     <ApplicationProvider
       {...eva}
       customMapping={mapping as any}
-      theme={{...eva.dark, ...evaTheme}}>
+      theme={{...eva.light, ...evaTheme}}>
       <NativeBaseProvider>
-        <NativeRouter>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName={!onboarded ? 'Onboarding' : 'Main'}>
+            {!onboarded && (
+              <Stack.Group screenOptions={{headerShown: false}}>
+                <Stack.Screen name="Onboarding" component={Onboarding} />
+                <Stack.Screen name="Setup" component={Setup} />
+              </Stack.Group>
+            )}
+
+            {/* <Stack.Screen name="Main" component={Home} /> */}
+          </Stack.Navigator>
+        </NavigationContainer>
+
+        {/* <NativeRouter>
           <BackHandler />
 
           <Routes>
             <Route path="/*" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/onboarding" element={<Onboarding />} />
           </Routes>
-        </NativeRouter>
+        </NativeRouter> */}
       </NativeBaseProvider>
     </ApplicationProvider>
   );
