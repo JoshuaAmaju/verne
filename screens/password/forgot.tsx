@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import {Text} from '@ui-kitten/components';
 import {VStack} from 'native-base';
 import React from 'react';
@@ -6,6 +7,8 @@ import Input from '../../shared/components/Input';
 import Screen from '../../shared/components/Screen';
 
 export default function Reset() {
+  const nav = useNavigation();
+
   return (
     <Screen>
       <VStack space={10}>
@@ -21,7 +24,7 @@ export default function Reset() {
 
         <VStack space={8}>
           <Input keyboardType="email-address" placeholder="Email address" />
-          <Button>Continue</Button>
+          <Button onPress={() => nav.navigate('OTP' as any)}>Continue</Button>
         </VStack>
       </VStack>
     </Screen>
