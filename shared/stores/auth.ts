@@ -56,4 +56,8 @@ export const hydrate = async () => {
 
 export const login = () => {};
 
+export const logout = () => {
+  set({auth: false});
+};
+
 export default store;

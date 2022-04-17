@@ -14,6 +14,7 @@ import mapping from './theme/mapping.json';
 import * as Setup from './screens/onboarding/setup';
 import authStore, {selector as authSelector} from './shared/stores/auth';
 import ForgotPassword from './screens/password/forgot';
+import ResetPassword from './screens/password/reset';
 import OTP from './screens/password/otp';
 
 const Stack = createNativeStackNavigator();
@@ -74,6 +75,7 @@ export default function App() {
               screenOptions={{headerTitle: '', headerShadowVisible: false}}>
               <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
               <Stack.Screen name="OTP" component={OTP} />
+              <Stack.Screen name="ResetPassword" component={ResetPassword} />
             </Stack.Group>
           </Stack.Navigator>
         </NavigationContainer>

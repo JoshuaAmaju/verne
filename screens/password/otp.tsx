@@ -1,12 +1,30 @@
+import {useNavigation} from '@react-navigation/native';
 import {Text} from '@ui-kitten/components';
 import {VStack} from 'native-base';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import Button from '../../shared/components/Button';
 import Input from '../../shared/components/Input';
 import Screen from '../../shared/components/Screen';
 
 export default function Reset() {
+  const nav = useNavigation();
+  const [otp, setOTP] = useState<string>();
+
+  useEffect(() => {
+    setTimeout(() => {
+      setOTP('123456');
+    }, 3000);
+  }, []);
+
+  useEffect(() => {
+    if (otp) {
+      setTimeout(() => {
+        nav.navigate('ResetPassword' as any);
+      }, 1000);
+    }
+  }, [otp, nav]);
+
   return (
     <Screen>
       <VStack space={32}>
@@ -22,6 +40,7 @@ export default function Reset() {
 
         <VStack space={8} alignItems="center">
           <Input
+            value={otp}
             textAlign="center"
             style={styles.otp}
             keyboardType="number-pad"
