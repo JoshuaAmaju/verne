@@ -51,11 +51,16 @@ export default function App() {
                     component={Setup.Initial}
                   />
 
-                  <Stack.Screen name="Setup.Type" component={Setup.Type} />
+                  <Stack.Screen
+                    name="Setup.Type"
+                    component={Setup.Type}
+                    options={{animation: 'none'}}
+                  />
 
                   <Stack.Screen
                     name="Setup.Categories"
                     component={Setup.Categories}
+                    options={{animation: 'none'}}
                   />
 
                   <Stack.Screen name="Setup.Final" component={Setup.Final} />

@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {Button, RadioGroup, Text} from '@ui-kitten/components';
 import {VStack} from 'native-base';
 import React, {useEffect, useState} from 'react';
@@ -139,7 +139,8 @@ export function Type() {
 
       <Button
         style={styles.rounded}
-        onPress={() => nav.navigate('Setup.Categories' as any)}>
+        // @ts-ignore
+        onPress={() => nav.navigate('Setup.Categories', {type})}>
         Continue
       </Button>
     </View>
@@ -148,7 +149,10 @@ export function Type() {
 
 export function Categories() {
   const nav = useNavigation();
+  const {params = {} as any} = useRoute();
   const [categories, setCategory] = useState<string[]>([]);
+
+  console.log(params.type);
 
   return (
     <View style={[styles.expand, styles.between]}>
@@ -163,9 +167,9 @@ export function Categories() {
           </VStack>
 
           <VStack space={3}>
-            {CATEGORIES.map(item => {
+            {CATEGORIES.map((item, i) => {
               return (
-                <View style={styles.categoryContainer}>
+                <View key={i} style={styles.categoryContainer}>
                   <TouchableNativeFeedback
                     onPress={_ => setCategory(c => [...c, item.value])}>
                     <View style={styles.category}>
