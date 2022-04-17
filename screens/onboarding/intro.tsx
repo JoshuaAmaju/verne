@@ -5,13 +5,13 @@ import React, {createRef, useState} from 'react';
 import {
   Dimensions,
   FlatList,
-  Image,
   StatusBar,
   StyleSheet,
   TouchableNativeFeedback,
   View,
 } from 'react-native';
-import onboardedStore, {set, selector} from '../../shared/stores/onborading';
+import {set} from '../../shared/stores/onborading';
+import Image from 'react-native-fast-image';
 
 const {width} = Dimensions.get('screen');
 
@@ -46,7 +46,6 @@ export default function Onboarding() {
   const nav = useNavigation();
   const ref = createRef<FlatList>();
   const [index, setIndex] = useState(0);
-  const onboarded = onboardedStore(selector);
 
   return (
     <>
@@ -64,7 +63,11 @@ export default function Onboarding() {
           style={StyleSheet.absoluteFillObject}
           showsHorizontalScrollIndicator={false}
           renderItem={({item: {image}}) => (
-            <Image source={image} resizeMode="cover" style={styles.image} />
+            <Image
+              source={image}
+              style={styles.image}
+              resizeMode={Image.resizeMode.cover}
+            />
           )}
         />
 
@@ -110,7 +113,7 @@ export default function Onboarding() {
             <Button
               style={{borderRadius: 100}}
               onPress={() => {
-                nav.navigate('Signup');
+                nav.navigate('Signup' as any);
                 set(true);
               }}>
               Join for free
@@ -125,7 +128,7 @@ export default function Onboarding() {
 
               <TouchableNativeFeedback
                 onPress={() => {
-                  nav.navigate('Login');
+                  nav.navigate('Login' as any);
                   set(true);
                 }}>
                 <Text style={styles.link}>Login</Text>

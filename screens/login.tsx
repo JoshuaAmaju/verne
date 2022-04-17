@@ -37,7 +37,7 @@ export default function Signup() {
             </VStack>
 
             <TouchableNativeFeedback
-              onPress={() => nav.navigate('ForgotPassword')}>
+              onPress={() => nav.navigate('ForgotPassword' as any)}>
               <Text style={{color: colors.accent}}>I forgot my password</Text>
             </TouchableNativeFeedback>
           </VStack>
@@ -77,7 +77,7 @@ export default function Signup() {
       <HStack mt={3} space={1} alignItems="center" justifyContent="center">
         <Text>I don't have an account.</Text>
 
-        <TouchableNativeFeedback onPress={() => nav.navigate('Signup')}>
+        <TouchableNativeFeedback onPress={() => nav.navigate('Signup' as any)}>
           <Text style={styles.link}>Create free account</Text>
         </TouchableNativeFeedback>
       </HStack>

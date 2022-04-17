@@ -33,7 +33,11 @@ export default function Signup() {
           </VStack>
 
           <VStack space={4}>
-            <Button style={styles.rounded}>Join for free</Button>
+            <Button
+              style={styles.rounded}
+              onPress={() => nav.navigate('Setup.Initial' as any)}>
+              Join for free
+            </Button>
 
             <HStack space={2} alignItems="center">
               <Divider style={styles.expand} />
@@ -67,7 +71,7 @@ export default function Signup() {
       <HStack mt={3} space={1} alignItems="center" justifyContent="center">
         <Text>I already have an account.</Text>
 
-        <TouchableNativeFeedback onPress={() => nav.navigate('Login')}>
+        <TouchableNativeFeedback onPress={() => nav.navigate('Login' as any)}>
           <Text style={styles.link}>Login</Text>
         </TouchableNativeFeedback>
       </HStack>

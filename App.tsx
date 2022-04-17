@@ -6,23 +6,19 @@ import {NativeBaseProvider} from 'native-base';
 import React, {useLayoutEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import Onboarding from './screens/onboarding/intro';
-import Setup from './screens/onboarding/setup';
 import Signup from './screens/signup';
 import Login from './screens/login';
 import onboardedStore, {selector} from './shared/stores/onborading';
 import evaTheme from './theme/eva.json';
 import mapping from './theme/mapping.json';
+import * as Setup from './screens/onboarding/setup';
+import authStore, {selector as authSelector} from './shared/stores/auth';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const isAuth = authStore(authSelector);
   const onboarded = onboardedStore(selector);
-
-  // useEffect(() => {
-  //   AsyncStorage.getItem(ONBOARDING).then(n => {
-  //     if (n) setOnboarded(true);
-  //   });
-  // }, []);
 
   useLayoutEffect(() => {
     SplashScreen.hide();
@@ -35,31 +31,39 @@ export default function App() {
       theme={{...eva.light, ...evaTheme}}>
       <NativeBaseProvider>
         <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName={!onboarded ? 'Onboarding' : 'Main'}>
+          <Stack.Navigator>
             {!onboarded && (
-              <Stack.Group screenOptions={{headerShown: false}}>
-                <Stack.Screen name="Onboarding" component={Onboarding} />
-                <Stack.Screen name="Setup" component={Setup} />
-              </Stack.Group>
+              <Stack.Screen
+                name="Onboarding"
+                component={Onboarding}
+                options={{headerShown: false}}
+              />
             )}
 
-            <Stack.Group screenOptions={{headerShown: false}}>
-              <Stack.Screen name="Signup" component={Signup} />
-              <Stack.Screen name="Login" component={Login} />
-            </Stack.Group>
+            {isAuth ? null : (
+              <>
+                <Stack.Group screenOptions={{headerShown: false}}>
+                  <Stack.Screen name="Login" component={Login} />
+                  <Stack.Screen name="Signup" component={Signup} />
+
+                  <Stack.Screen
+                    name="Setup.Initial"
+                    component={Setup.Initial}
+                  />
+
+                  <Stack.Screen name="Setup.Type" component={Setup.Type} />
+
+                  <Stack.Screen
+                    name="Setup.Categories"
+                    component={Setup.Categories}
+                  />
+
+                  <Stack.Screen name="Setup.Final" component={Setup.Final} />
+                </Stack.Group>
+              </>
+            )}
           </Stack.Navigator>
         </NavigationContainer>
-
-        {/* <NativeRouter>
-          <BackHandler />
-
-          <Routes>
-            <Route path="/*" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/onboarding" element={<Onboarding />} />
-          </Routes>
-        </NativeRouter> */}
       </NativeBaseProvider>
     </ApplicationProvider>
   );

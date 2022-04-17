@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:background="@color/primary">
     <TextView
+        android:text="Verne"
+        android:textSize="64dp"
+        android:textFontWeight="700"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="64dp"
+        android:layout_centerInParent="true"
         android:fontFamily="@font/merienda_bold"
         android:textColor="@android:color/white"
-        android:textFontWeight="700"
-        android:text="Verne"
-        android:layout_centerInParent="true"
         />
 </RelativeLayout>
