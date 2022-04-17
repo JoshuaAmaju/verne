@@ -13,6 +13,7 @@ import evaTheme from './theme/eva.json';
 import mapping from './theme/mapping.json';
 import * as Setup from './screens/onboarding/setup';
 import authStore, {selector as authSelector} from './shared/stores/auth';
+import ForgotPassword from './screens/password/forgot';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,6 +68,11 @@ export default function App() {
                 </Stack.Group>
               </>
             )}
+
+            <Stack.Group
+              screenOptions={{headerTitle: '', headerShadowVisible: false}}>
+              <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            </Stack.Group>
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>
