@@ -57,14 +57,12 @@ export default function Signup() {
             <VStack space={4}>
               <Button
                 appearance="outline"
-                style={styles.social}
                 accessoryLeft={({style}: any) => <Google {...style} />}>
                 Login with Google
               </Button>
 
               <Button
                 appearance="outline"
-                style={styles.social}
                 accessoryLeft={({style}: any) => (
                   <Facebook {...style} color="#3D6AD6" />
                 )}>
@@ -99,8 +97,5 @@ const styles = StyleSheet.create({
   },
   divider: {
     flex: 1,
-  },
-  social: {
-    backgroundColor: 'transparent',
   },
 });
