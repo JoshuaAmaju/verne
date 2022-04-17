@@ -1,10 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
-import {Button, Divider, Layout, Text} from '@ui-kitten/components';
+import {Divider, Layout, Text} from '@ui-kitten/components';
 import {HStack, VStack} from 'native-base';
 import React from 'react';
 import {StyleSheet, TouchableNativeFeedback} from 'react-native';
 import Facebook from '../assets/icons/facebook.svg';
 import Google from '../assets/icons/google.svg';
+import Button from '../shared/components/Button';
 import Input from '../shared/components/Input';
 import PasswordInput from '../shared/components/PasswordInput';
 import colors from '../theme/colors';
@@ -33,9 +34,7 @@ export default function Signup() {
           </VStack>
 
           <VStack space={4}>
-            <Button
-              style={styles.rounded}
-              onPress={() => nav.navigate('Setup.Initial' as any)}>
+            <Button onPress={() => nav.navigate('Setup.Initial' as any)}>
               Join for free
             </Button>
 
@@ -50,14 +49,14 @@ export default function Signup() {
             <VStack space={4}>
               <Button
                 appearance="outline"
-                style={[styles.rounded, styles.social]}
+                style={styles.social}
                 accessoryLeft={({style}: any) => <Google {...style} />}>
                 Sign up with Google
               </Button>
 
               <Button
                 appearance="outline"
-                style={[styles.rounded, styles.social]}
+                style={styles.social}
                 accessoryLeft={({style}: any) => (
                   <Facebook {...style} color="#3D6AD6" />
                 )}>
@@ -92,9 +91,6 @@ const styles = StyleSheet.create({
   },
   divider: {
     flex: 1,
-  },
-  rounded: {
-    borderRadius: 100,
   },
   social: {
     backgroundColor: 'transparent',

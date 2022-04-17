@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {Button, RadioGroup, Text} from '@ui-kitten/components';
+import {RadioGroup, Text} from '@ui-kitten/components';
 import {VStack} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {
@@ -12,6 +12,7 @@ import CheckCircle from '../../assets/icons/check.circle.svg';
 import Spacer from '../../shared/components/Spacer';
 import colors from '../../theme/colors';
 import Image from 'react-native-fast-image';
+import Button from '../../shared/components/Button';
 // import MaskedView from '@react-native-masked-view/masked-view';
 // import ImageColors from 'react-native-image-colors';
 
@@ -105,9 +106,7 @@ export function Initial() {
   return (
     <View style={[styles.expand, styles.between, styles.screen]}>
       <Text category="h1">Let’s customize your Verne experience...</Text>
-      <Button
-        style={styles.rounded}
-        onPress={() => nav.navigate('Setup.Type' as any)}>
+      <Button onPress={() => nav.navigate('Setup.Type' as any)}>
         Continue
       </Button>
     </View>
@@ -138,7 +137,6 @@ export function Type() {
       </VStack>
 
       <Button
-        style={styles.rounded}
         // @ts-ignore
         onPress={() => nav.navigate('Setup.Categories', {type})}>
         Continue
@@ -206,7 +204,7 @@ export function Categories() {
       </ScrollView>
 
       <Button
-        style={[styles.rounded, styles.categoriesCTA]}
+        style={styles.categoriesCTA}
         onPress={() => nav.navigate('Setup.Final' as any)}>
         Continue
       </Button>
@@ -252,9 +250,6 @@ const styles = StyleSheet.create({
   },
   expand: {
     flex: 1,
-  },
-  rounded: {
-    borderRadius: 100,
   },
   between: {
     justifyContent: 'space-between',

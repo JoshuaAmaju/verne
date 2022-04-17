@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import {Button, Text} from '@ui-kitten/components';
+import {Text} from '@ui-kitten/components';
 import {HStack, VStack} from 'native-base';
 import React, {createRef, useState} from 'react';
 import {
@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {set} from '../../shared/stores/onborading';
 import Image from 'react-native-fast-image';
+import Button from '../../shared/components/Button';
 
 const {width} = Dimensions.get('screen');
 
@@ -111,7 +112,6 @@ export default function Onboarding() {
 
           <View>
             <Button
-              style={{borderRadius: 100}}
               onPress={() => {
                 nav.navigate('Signup' as any);
                 set(true);
