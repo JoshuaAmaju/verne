@@ -9,6 +9,7 @@ import Button from '../shared/components/Button';
 import Input from '../shared/components/Input';
 import PasswordInput from '../shared/components/PasswordInput';
 import colors from '../theme/colors';
+import * as auth from '../shared/stores/auth';
 
 export default function Signup() {
   const nav = useNavigation();
@@ -44,7 +45,13 @@ export default function Signup() {
           </VStack>
 
           <VStack space={4}>
-            <Button>Login</Button>
+            <Button
+              onPress={() => {
+                auth.login();
+                // nav.navigate('Home' as any);
+              }}>
+              Login
+            </Button>
 
             <HStack space={2} alignItems="center">
               <Divider style={styles.expand} />

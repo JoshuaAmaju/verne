@@ -54,7 +54,9 @@ export const hydrate = async () => {
   if (json) set(JSON.parse(json));
 };
 
-export const login = () => {};
+export const login = () => {
+  set({auth: true});
+};
 
 export const logout = () => {
   set({auth: false});

@@ -16,6 +16,7 @@ import authStore, {selector as authSelector} from './shared/stores/auth';
 import ForgotPassword from './screens/password/forgot';
 import ResetPassword from './screens/password/reset';
 import OTP from './screens/password/otp';
+import Home from './screens/home';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,7 +44,15 @@ export default function App() {
               />
             )}
 
-            {isAuth ? null : (
+            {isAuth ? (
+              <Stack.Group>
+                <Stack.Screen
+                  name="Home"
+                  component={Home}
+                  options={{headerShown: false}}
+                />
+              </Stack.Group>
+            ) : (
               <>
                 <Stack.Group screenOptions={{headerShown: false}}>
                   <Stack.Screen name="Login" component={Login} />
