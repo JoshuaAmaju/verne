@@ -33,7 +33,7 @@ const persist =
 
 const store = create<Value & Actions>(
   persist(set => ({
-    auth: false,
+    auth: true,
     set: value => set(value as Value),
   })),
 );

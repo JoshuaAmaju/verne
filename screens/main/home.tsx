@@ -1,9 +1,12 @@
-import {Layout, Text} from '@ui-kitten/components';
-import {Box, HStack, Spacer, VStack} from 'native-base';
+import {useNavigation} from '@react-navigation/native';
+import {Avatar, Text} from '@ui-kitten/components';
+// @ts-ignore
+import abbreviate from 'mout/number/abbreviate';
+import {Box, HStack, VStack} from 'native-base';
 import React, {ReactNode} from 'react';
 import {
+  Dimensions,
   FlatList,
-  ImageBackground,
   ScrollView,
   StatusBar,
   StyleProp,
@@ -11,60 +14,18 @@ import {
   TouchableOpacity,
   View,
   ViewStyle,
-  Dimensions,
 } from 'react-native';
-import Button from '../shared/components/Button';
-import colors from '../theme/colors';
 import Image from 'react-native-fast-image';
-import Star from '../assets/icons/star.svg';
+import {IconButton} from 'react-native-paper';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {FlatGrid} from 'react-native-super-grid';
-
-// @ts-ignore
-import {Col, Cols} from 'react-native-cols';
+import CircleChat from '../../assets/icons/circle.chat.bubble.svg';
+import Notification from '../../assets/icons/notification.svg';
+import Star from '../../assets/icons/star.svg';
+import colors from '../../theme/colors';
+import {DATA, ROOMS} from './dummy.data';
 
 const {width} = Dimensions.get('screen');
-
-const DATA = [
-  {
-    rating: 4.5,
-    title: 'A plan too late',
-    author: 'Reynolds Andrews',
-    subtitle: 'Reynolds Andrews',
-    cover: require('../assets/png/img.jpg'),
-    categories: [
-      'play',
-      'action',
-      'romance',
-      'adventure',
-      'fiction',
-      'mystery',
-    ],
-  },
-  {
-    rating: 4.5,
-    title: 'A plan too late',
-    author: 'Reynolds Andrews',
-    subtitle: 'Reynolds Andrews',
-    cover: require('../assets/png/img.jpg'),
-    categories: ['play', 'action', 'romance'],
-  },
-  {
-    rating: 4.5,
-    title: 'A plan too late',
-    author: 'Reynolds Andrews',
-    subtitle: 'Reynolds Andrews',
-    cover: require('../assets/png/img.jpg'),
-    categories: ['play', 'action', 'romance'],
-  },
-  {
-    rating: 4.5,
-    title: 'A plan too late',
-    author: 'Reynolds Andrews',
-    subtitle: 'Reynolds Andrews',
-    cover: require('../assets/png/img.jpg'),
-    categories: ['play', 'action', 'romance'],
-  },
-];
 
 const Section = ({
   title,
@@ -88,14 +49,45 @@ const Section = ({
 
 export default function Home() {
   const hero = DATA[0];
+  const nav = useNavigation();
 
   return (
     <>
       <StatusBar translucent backgroundColor="transparent" />
 
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
         <View style={styles.hero}>
           <Image source={hero.cover} style={StyleSheet.absoluteFillObject} />
+          <View
+            style={[
+              StyleSheet.absoluteFillObject,
+              {backgroundColor: 'rgba(0, 0, 0, 0.4)'},
+            ]}
+          />
+
+          <SafeAreaView>
+            <HStack m={2} space={2} alignSelf="flex-end" alignItems="center">
+              <IconButton
+                color="#fff"
+                onPress={() => nav.navigate('Notifications' as any)}
+                icon={({size, color}) => (
+                  <Notification width={size} height={size} color={color} />
+                )}
+              />
+
+              <IconButton
+                color="#fff"
+                onPress={() => nav.navigate('Messages' as any)}
+                icon={({size, color}) => (
+                  <CircleChat width={size} height={size} color={color} />
+                )}
+              />
+
+              <TouchableOpacity onPress={() => nav.navigate('Account' as any)}>
+                <Avatar source={require('../../assets/png/unnamed.png')} />
+              </TouchableOpacity>
+            </HStack>
+          </SafeAreaView>
 
           <VStack space={1} alignItems="center">
             <VStack p={4} space={2} alignItems="center">
@@ -116,7 +108,9 @@ export default function Home() {
               ItemSeparatorComponent={() => <Box width={2} />}
               renderItem={({item}) => {
                 return (
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    // @ts-ignore
+                    onPress={() => nav.navigate('Category', {id: item})}>
                     <View style={styles.categoryPill}>
                       <Text category="label" style={styles.pillLabel}>
                         {item}
@@ -130,6 +124,56 @@ export default function Home() {
         </View>
 
         <VStack space={4} py={4}>
+          <Section title="Live audio rooms">
+            <FlatList
+              horizontal
+              data={ROOMS}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{paddingHorizontal: 24}}
+              ItemSeparatorComponent={() => <Box width={3} />}
+              renderItem={({item}) => {
+                const host = item.participants.find(p => p.type === 'host');
+
+                return (
+                  <VStack
+                    p={5}
+                    space={4}
+                    borderRadius={20}
+                    backgroundColor="mistyrose">
+                    <VStack space={2}>
+                      <Text category="c1">{item.community}</Text>
+                      <Text category="h6" style={{maxWidth: 300}}>
+                        {item.title}
+                      </Text>
+                    </VStack>
+
+                    <HStack
+                      space={3}
+                      alignItems="center"
+                      justifyContent="space-between">
+                      {host && (
+                        <HStack space={2} alignItems="center">
+                          <HStack space={2} alignItems="center">
+                            <Avatar size="tiny" source={host.avatar} />
+                            <Text category="c2">{host.name}</Text>
+                          </HStack>
+
+                          <View style={styles.hostLabel}>
+                            <Text category="c2">Host</Text>
+                          </View>
+                        </HStack>
+                      )}
+
+                      <Text category="c2">
+                        {abbreviate(item.participants.length)} Listeners
+                      </Text>
+                    </HStack>
+                  </VStack>
+                );
+              }}
+            />
+          </Section>
+
           <Section title="Continue reading">
             <FlatList
               horizontal
@@ -263,7 +307,7 @@ const styles = StyleSheet.create({
   },
   hero: {
     height: 300,
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
   },
   entityCard: {
     width: 180,
@@ -277,5 +321,11 @@ const styles = StyleSheet.create({
     padding: 30,
     borderRadius: 8,
     backgroundColor: '#DDEEED',
+  },
+  hostLabel: {
+    borderRadius: 100,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    backgroundColor: '#EBEBEB',
   },
 });

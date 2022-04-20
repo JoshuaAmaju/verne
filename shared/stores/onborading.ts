@@ -10,7 +10,7 @@ type Actions = {
 export const ONBOARDING = 'verne/onboarding';
 
 const store = create<Value & Actions>(set => ({
-  onboarded: false,
+  onboarded: true,
   set: value => set(value),
 }));
 
