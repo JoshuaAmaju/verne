@@ -9,6 +9,7 @@ export type Entity = {
   title: string;
   rating: number;
   author: string;
+  summary: string;
   subtitle: string;
   categories: Category[];
 };
@@ -23,22 +24,26 @@ export const PROFILES = new Array(10).fill(0).map((_, i) => {
   };
 });
 
+export const CATEGORIES = [
+  {id: 1, name: 'Play'},
+  {id: 2, name: 'Action'},
+  {id: 3, name: 'Romance'},
+  {id: 4, name: 'Adventure'},
+  {id: 5, name: 'Fiction'},
+  {id: 6, name: 'Mystery'},
+];
+
 export const DATA: Entity[] = new Array(10).fill(0).map((_, i) => {
   return {
     id: i,
     rating: 4.5,
     cover: COVER,
+    categories: CATEGORIES,
     title: 'A plan too late',
     author: 'Reynolds Andrews',
     subtitle: 'Reynolds Andrews',
-    categories: [
-      {id: 1, name: 'play'},
-      {id: 2, name: 'action'},
-      {id: 3, name: 'romance'},
-      {id: 4, name: 'adventure'},
-      {id: 5, name: 'fiction'},
-      {id: 6, name: 'mystery'},
-    ],
+    summary:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Feugiat et duis diam lectus posuere aliquam...',
   };
 });
 

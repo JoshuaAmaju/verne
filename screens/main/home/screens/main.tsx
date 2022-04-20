@@ -17,12 +17,12 @@ import Image from 'react-native-fast-image';
 import {IconButton} from 'react-native-paper';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FlatGrid} from 'react-native-super-grid';
-import CircleChat from '../../assets/icons/circle.chat.bubble.svg';
-import Notification from '../../assets/icons/notification.svg';
-import colors from '../../theme/colors';
-import Entity from './components/entity';
-import Section from './components/section';
-import {DATA, ROOMS} from './dummy.data';
+import CircleChat from '../../../../assets/icons/circle.chat.bubble.svg';
+import Notification from '../../../../assets/icons/notification.svg';
+import colors from '../../../../theme/colors';
+import Entity from '../../components/entity';
+import Section from '../../components/section';
+import {DATA, ROOMS} from '../../dummy.data';
 
 const {width} = Dimensions.get('screen');
 
@@ -63,7 +63,9 @@ export default function Home() {
               />
 
               <TouchableOpacity onPress={() => nav.navigate('Account' as any)}>
-                <Avatar source={require('../../assets/png/unnamed.png')} />
+                <Avatar
+                  source={require('../../../../assets/png/unnamed.png')}
+                />
               </TouchableOpacity>
             </HStack>
           </SafeAreaView>
@@ -90,7 +92,7 @@ export default function Home() {
                 return (
                   <TouchableOpacity
                     // @ts-ignore
-                    onPress={() => nav.navigate('Category', {id: item})}>
+                    onPress={() => nav.navigate('Category', item)}>
                     <View style={styles.categoryPill}>
                       <Text category="label" style={styles.pillLabel}>
                         {item.name}

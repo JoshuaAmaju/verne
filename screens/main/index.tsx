@@ -46,6 +46,7 @@ export default function Tabs() {
           // You can return any component that you like here!
           return <Icon width={size} height={size} color={color} />;
         },
+        headerShown: false,
         tabBarInactiveTintColor: '#B8B8B8',
         tabBarActiveTintColor: colors.primary,
         tabBarStyle: {
@@ -57,27 +58,13 @@ export default function Tabs() {
           fontFamily: 'Besley-Regular',
         },
       })}>
-      <Tab.Screen name="Home" component={Home} options={{headerShown: false}} />
-      <Tab.Screen
-        name="Explore"
-        component={Home}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name="Library"
-        component={Home}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name="Community"
-        component={Home}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen
-        name="Account"
-        component={Home}
-        options={{headerShown: false}}
-      />
+      <Tab.Screen name="Home" component={Home} />
+
+      <Tab.Screen name="Explore" component={Home} />
+
+      <Tab.Screen name="Library" component={Home} />
+      <Tab.Screen name="Community" component={Home} />
+      <Tab.Screen name="Account" component={Home} />
     </Tab.Navigator>
   );
 }
