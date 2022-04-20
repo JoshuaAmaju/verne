@@ -1,11 +1,16 @@
 export type Category = {
   id: number;
-  cover: string;
+  name: string;
+};
+
+export type Entity = {
+  id: number;
+  cover: number;
   title: string;
   rating: number;
   author: string;
   subtitle: string;
-  categories: string[];
+  categories: Category[];
 };
 
 export const COVER = require('../../assets/png/img.jpg');
@@ -18,7 +23,7 @@ export const PROFILES = new Array(10).fill(0).map((_, i) => {
   };
 });
 
-export const DATA = new Array(10).fill(0).map((_, i) => {
+export const DATA: Entity[] = new Array(10).fill(0).map((_, i) => {
   return {
     id: i,
     rating: 4.5,
@@ -27,12 +32,12 @@ export const DATA = new Array(10).fill(0).map((_, i) => {
     author: 'Reynolds Andrews',
     subtitle: 'Reynolds Andrews',
     categories: [
-      'play',
-      'action',
-      'romance',
-      'adventure',
-      'fiction',
-      'mystery',
+      {id: 1, name: 'play'},
+      {id: 2, name: 'action'},
+      {id: 3, name: 'romance'},
+      {id: 4, name: 'adventure'},
+      {id: 5, name: 'fiction'},
+      {id: 6, name: 'mystery'},
     ],
   };
 });

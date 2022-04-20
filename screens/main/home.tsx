@@ -3,17 +3,15 @@ import {Avatar, Text} from '@ui-kitten/components';
 // @ts-ignore
 import abbreviate from 'mout/number/abbreviate';
 import {Box, HStack, VStack} from 'native-base';
-import React, {ReactNode} from 'react';
+import React from 'react';
 import {
   Dimensions,
   FlatList,
   ScrollView,
   StatusBar,
-  StyleProp,
   StyleSheet,
   TouchableOpacity,
   View,
-  ViewStyle,
 } from 'react-native';
 import Image from 'react-native-fast-image';
 import {IconButton} from 'react-native-paper';
@@ -21,31 +19,12 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {FlatGrid} from 'react-native-super-grid';
 import CircleChat from '../../assets/icons/circle.chat.bubble.svg';
 import Notification from '../../assets/icons/notification.svg';
-import Star from '../../assets/icons/star.svg';
 import colors from '../../theme/colors';
+import Entity from './components/entity';
+import Section from './components/section';
 import {DATA, ROOMS} from './dummy.data';
 
 const {width} = Dimensions.get('screen');
-
-const Section = ({
-  title,
-  style,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-  style?: StyleProp<ViewStyle>;
-}) => {
-  return (
-    <VStack space={3} style={style}>
-      <Text category="h6" style={{marginStart: 24}}>
-        {title}
-      </Text>
-
-      {children}
-    </VStack>
-  );
-};
 
 export default function Home() {
   const hero = DATA[0];
@@ -105,6 +84,7 @@ export default function Home() {
               data={hero.categories}
               contentContainerStyle={{padding: 16}}
               showsHorizontalScrollIndicator={false}
+              keyExtractor={item => item.id.toString()}
               ItemSeparatorComponent={() => <Box width={2} />}
               renderItem={({item}) => {
                 return (
@@ -113,7 +93,7 @@ export default function Home() {
                     onPress={() => nav.navigate('Category', {id: item})}>
                     <View style={styles.categoryPill}>
                       <Text category="label" style={styles.pillLabel}>
-                        {item}
+                        {item.name}
                       </Text>
                     </View>
                   </TouchableOpacity>
@@ -179,33 +159,9 @@ export default function Home() {
               horizontal
               data={DATA}
               showsHorizontalScrollIndicator={false}
+              renderItem={({item}) => <Entity {...item} />}
               contentContainerStyle={{paddingHorizontal: 24}}
               ItemSeparatorComponent={() => <Box width={3} />}
-              renderItem={({item}) => {
-                return (
-                  <VStack space={1}>
-                    <View style={styles.entityCard}>
-                      <Image
-                        source={item.cover}
-                        style={StyleSheet.absoluteFillObject}
-                      />
-
-                      <Text category="h1" style={{color: '#fff'}}>
-                        {item.title}
-                      </Text>
-                    </View>
-
-                    <HStack space={2} justifyContent="space-between">
-                      <Text category="c2">{item.author}</Text>
-
-                      <HStack space={1} alignItems="center">
-                        <Text category="s2">{item.rating}</Text>
-                        <Star width={13} height={13} color="#FFC107" />
-                      </HStack>
-                    </HStack>
-                  </VStack>
-                );
-              }}
             />
           </Section>
 
@@ -234,12 +190,13 @@ export default function Home() {
               numColumns={2}
               data={DATA[0].categories}
               staticDimension={width / 2 - 20}
+              keyExtractor={item => item.id.toString()}
               contentContainerStyle={{paddingHorizontal: 24}}
               renderItem={({item}) => {
                 return (
                   <View style={styles.category}>
                     <Text category="h2" style={{textTransform: 'capitalize'}}>
-                      {item}
+                      {item.name}
                     </Text>
                   </View>
                 );
@@ -252,33 +209,9 @@ export default function Home() {
               horizontal
               data={DATA}
               showsHorizontalScrollIndicator={false}
+              renderItem={({item}) => <Entity {...item} />}
               contentContainerStyle={{paddingHorizontal: 24}}
               ItemSeparatorComponent={() => <Box width={3} />}
-              renderItem={({item}) => {
-                return (
-                  <VStack space={1}>
-                    <View style={styles.entityCard}>
-                      <Image
-                        source={item.cover}
-                        style={StyleSheet.absoluteFillObject}
-                      />
-
-                      <Text category="h1" style={{color: '#fff'}}>
-                        {item.title}
-                      </Text>
-                    </View>
-
-                    <HStack space={2} justifyContent="space-between">
-                      <Text category="c2">{item.author}</Text>
-
-                      <HStack space={1} alignItems="center">
-                        <Text category="s2">{item.rating}</Text>
-                        <Star width={13} height={13} color="#FFC107" />
-                      </HStack>
-                    </HStack>
-                  </VStack>
-                );
-              }}
             />
           </Section>
         </VStack>
