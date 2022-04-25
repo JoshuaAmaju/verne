@@ -14,7 +14,7 @@ export type Entity = {
   categories: Category[];
 };
 
-export const COVER = require('../../assets/png/img.jpg');
+export const COVER = require('../assets/png/img.jpg');
 
 export const PROFILES = new Array(10).fill(0).map((_, i) => {
   return {

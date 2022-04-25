@@ -17,6 +17,7 @@ import ForgotPassword from './screens/password/forgot';
 import ResetPassword from './screens/password/reset';
 import OTP from './screens/password/otp';
 import Main from './screens/main';
+import Entity from './screens/entity';
 
 const Stack = createNativeStackNavigator();
 
@@ -86,6 +87,16 @@ export default function App() {
               <Stack.Screen name="OTP" component={OTP} />
               <Stack.Screen name="ResetPassword" component={ResetPassword} />
             </Stack.Group>
+
+            <Stack.Screen
+              name="Entity"
+              component={Entity}
+              options={{
+                headerTitle: '',
+                headerTintColor: '#fff',
+                headerTransparent: true,
+              }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>

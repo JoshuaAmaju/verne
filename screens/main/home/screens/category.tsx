@@ -20,9 +20,9 @@ import Settings from '../../../../assets/icons/settings.svg';
 import ChatSquare from '../../../../assets/icons/square.chat.bubble.svg';
 import Star from '../../../../assets/icons/star.svg';
 import colors from '../../../../theme/colors';
-import Entity from '../../components/entity';
-import Section from '../../components/section';
-import {CATEGORIES, DATA} from '../../dummy.data';
+import Entity from '../../../components/entity';
+import Section from '../../../components/section';
+import {CATEGORIES, DATA} from '../../../dummy.data';
 
 export default function Home() {
   const hero = DATA[0];
