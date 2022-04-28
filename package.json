@@ -24,6 +24,7 @@
     "numeral": "^2.0.6",
     "react": "17.0.2",
     "react-native": "0.68.0",
+    "react-native-actions-sheet": "^0.6.1",
     "react-native-cols": "^1.0.3",
     "react-native-extract-color": "^1.0.0",
     "react-native-fast-image": "^8.5.11",

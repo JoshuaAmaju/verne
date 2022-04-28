@@ -3,6 +3,12 @@ export type Category = {
   name: string;
 };
 
+type Chapter = {
+  id: number;
+  title: string;
+  content: string[];
+};
+
 export type Entity = {
   id: number;
   cover: number;
@@ -12,6 +18,9 @@ export type Entity = {
   summary: string;
   subtitle: string;
   categories: Category[];
+  parts: {
+    chapters: Chapter[];
+  }[];
 };
 
 export const COVER = require('../assets/png/img.jpg');
@@ -33,6 +42,13 @@ export const CATEGORIES = [
   {id: 6, name: 'Mystery'},
 ];
 
+const arrayTen = new Array(10).fill(0);
+
+const content = arrayTen.map(
+  () =>
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque commodi obcaecati, dicta corporis repudiandae voluptatibus numquam labore veniam dolore quo enim recusandae expedita unde hic at non! Explicabo, sit rem.',
+);
+
 export const DATA: Entity[] = new Array(10).fill(0).map((_, i) => {
   return {
     id: i,
@@ -44,6 +60,13 @@ export const DATA: Entity[] = new Array(10).fill(0).map((_, i) => {
     subtitle: 'Reynolds Andrews',
     summary:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Feugiat et duis diam lectus posuere aliquam...',
+    parts: arrayTen.map(() => ({
+      chapters: arrayTen.map((_, i) => ({
+        id: i,
+        content,
+        title: 'The very beginning',
+      })),
+    })),
   };
 });
 

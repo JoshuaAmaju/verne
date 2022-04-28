@@ -222,7 +222,9 @@ export default function Entity() {
       </ScrollView>
 
       <Box mx={6} mb={8}>
-        <Button>Start reading</Button>
+        <Button onPress={() => nav.navigate('Reader', {entity: params})}>
+          Start reading
+        </Button>
       </Box>
     </Layout>
   );

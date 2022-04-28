@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ApplicationProvider} from '@ui-kitten/components';
 import {NativeBaseProvider} from 'native-base';
+import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import React, {useLayoutEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import Onboarding from './screens/onboarding/intro';
@@ -18,6 +19,18 @@ import ResetPassword from './screens/password/reset';
 import OTP from './screens/password/otp';
 import Main from './screens/main';
 import Entity from './screens/entity';
+import Reader from './screens/reader';
+import colors from './theme/colors';
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    accent: colors.accent,
+    primary: colors.primary,
+  },
+};
 
 const Stack = createNativeStackNavigator();
 
@@ -34,71 +47,86 @@ export default function App() {
       {...eva}
       customMapping={mapping as any}
       theme={{...eva.light, ...evaTheme}}>
-      <NativeBaseProvider>
-        <NavigationContainer>
-          <Stack.Navigator>
-            {!onboarded && (
-              <Stack.Screen
-                name="Onboarding"
-                component={Onboarding}
-                options={{headerShown: false}}
-              />
-            )}
-
-            {isAuth ? (
-              <Stack.Group>
+      <NativeBaseProvider isSSR>
+        <PaperProvider theme={theme}>
+          <NavigationContainer>
+            <Stack.Navigator>
+              {!onboarded && (
                 <Stack.Screen
-                  name="Main"
-                  component={Main}
+                  name="Onboarding"
+                  component={Onboarding}
                   options={{headerShown: false}}
                 />
-              </Stack.Group>
-            ) : (
-              <>
-                <Stack.Group screenOptions={{headerShown: false}}>
-                  <Stack.Screen name="Login" component={Login} />
-                  <Stack.Screen name="Signup" component={Signup} />
+              )}
 
+              {isAuth ? (
+                <Stack.Group>
                   <Stack.Screen
-                    name="Setup.Initial"
-                    component={Setup.Initial}
+                    name="Main"
+                    component={Main}
+                    options={{headerShown: false}}
                   />
-
-                  <Stack.Screen
-                    name="Setup.Type"
-                    component={Setup.Type}
-                    options={{animation: 'none'}}
-                  />
-
-                  <Stack.Screen
-                    name="Setup.Categories"
-                    component={Setup.Categories}
-                    options={{animation: 'none'}}
-                  />
-
-                  <Stack.Screen name="Setup.Final" component={Setup.Final} />
                 </Stack.Group>
-              </>
-            )}
+              ) : (
+                <>
+                  <Stack.Group screenOptions={{headerShown: false}}>
+                    <Stack.Screen name="Login" component={Login} />
+                    <Stack.Screen name="Signup" component={Signup} />
 
-            <Stack.Group
-              screenOptions={{headerTitle: '', headerShadowVisible: false}}>
-              <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-              <Stack.Screen name="OTP" component={OTP} />
-              <Stack.Screen name="ResetPassword" component={ResetPassword} />
-            </Stack.Group>
+                    <Stack.Screen
+                      name="Setup.Initial"
+                      component={Setup.Initial}
+                    />
 
-            <Stack.Screen
-              name="Entity"
-              component={Entity}
-              options={{
-                headerTitle: '',
-                headerTintColor: '#fff',
-                headerTransparent: true,
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+                    <Stack.Screen
+                      name="Setup.Type"
+                      component={Setup.Type}
+                      options={{animation: 'none'}}
+                    />
+
+                    <Stack.Screen
+                      name="Setup.Categories"
+                      component={Setup.Categories}
+                      options={{animation: 'none'}}
+                    />
+
+                    <Stack.Screen name="Setup.Final" component={Setup.Final} />
+                  </Stack.Group>
+                </>
+              )}
+
+              <Stack.Group
+                screenOptions={{headerTitle: '', headerShadowVisible: false}}>
+                <Stack.Screen
+                  name="ForgotPassword"
+                  component={ForgotPassword}
+                />
+                <Stack.Screen name="OTP" component={OTP} />
+                <Stack.Screen name="ResetPassword" component={ResetPassword} />
+              </Stack.Group>
+
+              <Stack.Screen
+                name="Entity"
+                component={Entity}
+                options={{
+                  headerTitle: '',
+                  headerTintColor: '#fff',
+                  headerTransparent: true,
+                }}
+              />
+
+              <Stack.Screen
+                name="Reader"
+                component={Reader}
+                options={{
+                  headerBackVisible: false,
+                  headerShadowVisible: false,
+                  headerTitleAlign: 'center',
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </PaperProvider>
       </NativeBaseProvider>
     </ApplicationProvider>
   );
