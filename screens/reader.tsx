@@ -259,7 +259,8 @@ export default function Reader() {
 
           <HStack px={2} py={4} justifyContent="space-evenly">
             {bottomActions.map(a => (
-              <TouchableOpacity>
+              // @ts-ignore
+              <TouchableOpacity onPress={() => nav.navigate(a.title, {id})}>
                 <VStack px={4} py={2} flex={1} space={1} alignItems="center">
                   {a.icon}
                   <Text category="c1">{a.title}</Text>
