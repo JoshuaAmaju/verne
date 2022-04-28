@@ -242,14 +242,7 @@ export default function Reader() {
                   Chapter {chapter + 1}
                 </Text>
 
-                <Text
-                  style={{
-                    fontSize: 20,
-                    color: '#383838',
-                    fontFamily: 'Besley-Regular',
-                  }}>
-                  {_chapter.title}
-                </Text>
+                <Text style={styles.chapterTitle}>{_chapter.title}</Text>
               </VStack>
 
               <VStack space={2}>
@@ -427,5 +420,10 @@ const styles = StyleSheet.create({
   parts: {
     paddingVertical: 30,
     backgroundColor: '#fff',
+  },
+  chapterTitle: {
+    fontSize: 20,
+    color: '#383838',
+    fontFamily: 'Besley-Regular',
   },
 });
