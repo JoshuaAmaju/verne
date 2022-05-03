@@ -21,6 +21,7 @@ import Main from './screens/main';
 import Entity from './screens/entity';
 import Reader from './screens/reader';
 import Comments from './screens/comments';
+import Report from './screens/report';
 import colors from './theme/colors';
 
 const theme = {
@@ -123,11 +124,14 @@ export default function App() {
                   headerTitleAlign: 'center',
                 }}>
                 <Stack.Screen name="Reader" component={Reader} />
+
                 <Stack.Screen
                   name="Comment"
                   component={Comments}
                   options={{title: 'Comments'}}
                 />
+
+                <Stack.Screen name="Report" component={Report} />
               </Stack.Group>
             </Stack.Navigator>
           </NavigationContainer>

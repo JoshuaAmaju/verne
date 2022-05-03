@@ -113,3 +113,35 @@ export const COMMENTS: Comment[] = new Array(10).fill(0).map((_, i) => {
     comments: [],
   };
 });
+
+export const ReportTypes = [
+  {
+    type: 1,
+    label: 'Matured content',
+    description:
+      'This content should have been placed in matured category and rated 18',
+  },
+  {
+    type: 2,
+    label: 'Inappropraite story',
+    description:
+      'This story is reported as inappropraite if it contains any or all of the following',
+  },
+  {
+    type: 3,
+    label: 'The cover image is inappropraite',
+    description:
+      'The cover image can be reported as inappropraite if it belongs in any of these categories',
+  },
+  {
+    type: 4,
+    label: 'The story violates copyright',
+    description:
+      'Kindly provide more details on how this story violates copyright',
+  },
+  {
+    type: 5,
+    label: 'Other reasons',
+    description: 'Kindly provide the reason why you are reporting this story',
+  },
+];
