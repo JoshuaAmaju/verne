@@ -48,7 +48,7 @@ export default function App() {
       {...eva}
       customMapping={mapping as any}
       theme={{...eva.light, ...evaTheme}}>
-      <NativeBaseProvider>
+      <NativeBaseProvider isSSR>
         <PaperProvider theme={theme}>
           <NavigationContainer>
             <Stack.Navigator>

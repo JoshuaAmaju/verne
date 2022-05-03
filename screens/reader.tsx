@@ -18,6 +18,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  Share as RNShare,
 } from 'react-native';
 import ActionSheet from 'react-native-actions-sheet';
 import {IconButton, List} from 'react-native-paper';
@@ -134,7 +135,7 @@ export default function Reader() {
 
   const {entity, part = 0, chapter = 0} = params;
 
-  const {id} = entity;
+  const {id, name} = entity;
 
   const _entity = DATA.find(d => d.id === id);
 
@@ -185,12 +186,6 @@ export default function Reader() {
       ),
     });
   }, [nav, showDropdown, speaking]);
-
-  console.log(
-    speed,
-    reverseSpeedMapping[speed],
-    reverseSpeedMapping[speed] * 100,
-  );
 
   return (
     <>
@@ -252,8 +247,15 @@ export default function Reader() {
 
           <HStack px={2} py={4} justifyContent="space-evenly">
             {bottomActions.map(a => (
-              // @ts-ignore
-              <TouchableOpacity onPress={() => nav.navigate(a.title, {id})}>
+              <TouchableOpacity
+                onPress={() => {
+                  if (a.title === 'Share') {
+                    RNShare.share({message: `Verne | Share ${name}`});
+                  } else {
+                    // @ts-ignore
+                    nav.navigate(a.title, {id});
+                  }
+                }}>
                 <VStack px={4} py={2} flex={1} space={1} alignItems="center">
                   {a.icon}
                   <Text category="c1">{a.title}</Text>
