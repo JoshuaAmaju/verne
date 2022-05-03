@@ -1,11 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {
-  IndexPath,
-  Select,
-  SelectGroup,
-  SelectItem,
-  Text,
-} from '@ui-kitten/components';
+import {Text} from '@ui-kitten/components';
+import {HStack, Slider, VStack} from 'native-base';
 import React, {
   createRef,
   useEffect,
@@ -21,30 +16,28 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  TouchableHighlight,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {DATA} from './dummy.data';
-import Xmark from '../assets/icons/xmark.svg';
-import Speaker from '../assets/icons/speaker.svg';
-import ArrowDown from '../assets/icons/arrow.down.svg';
-import Star from '../assets/icons/rate.star.svg';
-import SquareChat from '../assets/icons/square.chat.bubble.svg';
-import Share from '../assets/icons/share.svg';
-import Flag from '../assets/icons/flag.svg';
-import Play from '../assets/icons/play.circle.fill.svg';
-import Pause from '../assets/icons/pause.circle.fill.svg';
-import Previous from '../assets/icons/previous.svg';
-import Next from '../assets/icons/next.svg';
-import PersonSpeaker from '../assets/icons/person.speaker.svg';
-import ChevronDown from '../assets/icons/chevron.down.svg';
-import {HStack, Slider, VStack} from 'native-base';
+import ActionSheet from 'react-native-actions-sheet';
 import {IconButton, List} from 'react-native-paper';
+import ArrowDown from '../assets/icons/arrow.down.svg';
+import ChevronDown from '../assets/icons/chevron.down.svg';
+import Flag from '../assets/icons/flag.svg';
+import Next from '../assets/icons/next.svg';
+import Pause from '../assets/icons/pause.circle.fill.svg';
+import PersonSpeaker from '../assets/icons/person.speaker.svg';
+import Play from '../assets/icons/play.circle.fill.svg';
+import Previous from '../assets/icons/previous.svg';
+import Star from '../assets/icons/rate.star.svg';
+import Share from '../assets/icons/share.svg';
+import Speaker from '../assets/icons/speaker.svg';
+import SquareChat from '../assets/icons/square.chat.bubble.svg';
+import Xmark from '../assets/icons/xmark.svg';
 import Button from '../shared/components/Button';
-import colors from '../theme/colors';
-import ActionSheet, {SheetManager} from 'react-native-actions-sheet';
 import Spacer from '../shared/components/Spacer';
+import colors from '../theme/colors';
+import {DATA} from './dummy.data';
 
 type Speeds = Record<number, number>;
 

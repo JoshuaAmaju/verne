@@ -25,14 +25,6 @@ export type Entity = {
 
 export const COVER = require('../assets/png/img.jpg');
 
-export const PROFILES = new Array(10).fill(0).map((_, i) => {
-  return {
-    id: i,
-    avatar: COVER,
-    name: 'Reynolds Andrews',
-  };
-});
-
 export const CATEGORIES = [
   {id: 1, name: 'Play'},
   {id: 2, name: 'Action'},
@@ -84,5 +76,40 @@ export const ROOMS = new Array(10).fill(0).map((_, i) => {
         name: 'Reynolds Andrews',
       };
     }),
+  };
+});
+
+type Profile = {
+  id: number;
+  name: string;
+  avatar: string;
+};
+
+export const PROFILES: Profile[] = new Array(10).fill(0).map((_, i) => {
+  return {
+    id: i,
+    avatar: COVER,
+    name: 'Reynolds Andrews',
+  };
+});
+
+export type Comment = {
+  id: number;
+  user: number;
+  likes: number;
+  comment: string;
+  createdAt: string;
+  comments: Comment[];
+};
+
+export const COMMENTS: Comment[] = new Array(10).fill(0).map((_, i) => {
+  return {
+    id: i,
+    user: i,
+    likes: 1000,
+    createdAt: new Date(),
+    comment:
+      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas aperiam sequi, delectus dolorum officia aliquam sed molestiae mollitia. Mollitia, aliquid repellat corporis voluptate corrupti blanditiis ipsa illo dignissimos iure laborum?',
+    comments: [],
   };
 });

@@ -20,6 +20,7 @@ import OTP from './screens/password/otp';
 import Main from './screens/main';
 import Entity from './screens/entity';
 import Reader from './screens/reader';
+import Comments from './screens/comments';
 import colors from './theme/colors';
 
 const theme = {
@@ -47,7 +48,7 @@ export default function App() {
       {...eva}
       customMapping={mapping as any}
       theme={{...eva.light, ...evaTheme}}>
-      <NativeBaseProvider isSSR>
+      <NativeBaseProvider>
         <PaperProvider theme={theme}>
           <NavigationContainer>
             <Stack.Navigator>
@@ -115,15 +116,19 @@ export default function App() {
                 }}
               />
 
-              <Stack.Screen
-                name="Reader"
-                component={Reader}
-                options={{
+              <Stack.Group
+                screenOptions={{
                   headerBackVisible: false,
                   headerShadowVisible: false,
                   headerTitleAlign: 'center',
-                }}
-              />
+                }}>
+                <Stack.Screen name="Reader" component={Reader} />
+                <Stack.Screen
+                  name="Comment"
+                  component={Comments}
+                  options={{title: 'Comments'}}
+                />
+              </Stack.Group>
             </Stack.Navigator>
           </NavigationContainer>
         </PaperProvider>
