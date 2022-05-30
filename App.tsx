@@ -22,6 +22,7 @@ import Entity from './screens/entity';
 import Reader from './screens/reader';
 import Comments from './screens/comments';
 import Report from './screens/report';
+import SingleReport from './screens/report/single';
 import colors from './theme/colors';
 
 const theme = {
@@ -49,10 +50,10 @@ export default function App() {
       {...eva}
       customMapping={mapping as any}
       theme={{...eva.light, ...evaTheme}}>
-      <NativeBaseProvider isSSR>
+      <NativeBaseProvider>
         <PaperProvider theme={theme}>
           <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator screenOptions={{headerShadowVisible: false}}>
               {!onboarded && (
                 <Stack.Screen
                   name="Onboarding"
@@ -133,6 +134,12 @@ export default function App() {
 
                 <Stack.Screen name="Report" component={Report} />
               </Stack.Group>
+
+              <Stack.Screen
+                name="SingleReport"
+                component={SingleReport}
+                options={{title: 'Report', headerTitleAlign: 'center'}}
+              />
             </Stack.Navigator>
           </NavigationContainer>
         </PaperProvider>

@@ -126,12 +126,27 @@ export const ReportTypes = [
     label: 'Inappropraite story',
     description:
       'This story is reported as inappropraite if it contains any or all of the following',
+    policy: [
+      'Rape or non-consensual sex',
+      'Sex involving a minor',
+      'Incest',
+      'Sex involving animals',
+      'Includes or promotes violence',
+      'Rape or non-consensual sex',
+      'Animal cruelty',
+      'Promotes descrimination or hate',
+    ],
   },
   {
     type: 3,
     label: 'The cover image is inappropraite',
     description:
       'The cover image can be reported as inappropraite if it belongs in any of these categories',
+    policy: [
+      'Explicit cover',
+      'Contains images of popular people',
+      'Infringement of copyright',
+    ],
   },
   {
     type: 4,

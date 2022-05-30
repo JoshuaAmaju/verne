@@ -4,9 +4,9 @@ import {Box, HStack} from 'native-base';
 import React, {useEffect} from 'react';
 import {FlatList, TouchableOpacity} from 'react-native';
 import {IconButton} from 'react-native-paper';
-import Screen from '../shared/components/Screen';
-import {ChevronRight, Xmark} from '../shared/exports/icons';
-import {ReportTypes} from './dummy.data';
+import Screen from '../../shared/components/Screen';
+import {ChevronRight, Xmark} from '../../shared/exports/icons';
+import {ReportTypes} from '../dummy.data';
 
 export default function Report() {
   const nav = useNavigation();
@@ -40,7 +40,7 @@ export default function Report() {
             <TouchableOpacity
               onPress={() => {
                 // @ts-ignore
-                nav.navigate('ReportSingle', {id, type: item.type});
+                nav.navigate('SingleReport', {id, type: item.type});
               }}>
               <HStack py={4} alignItems="center" justifyContent="space-between">
                 <Text>{item.label}</Text>
