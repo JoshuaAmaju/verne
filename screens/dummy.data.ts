@@ -62,7 +62,20 @@ export const DATA: Entity[] = new Array(10).fill(0).map((_, i) => {
   };
 });
 
-export const ROOMS = new Array(10).fill(0).map((_, i) => {
+export type Room = {
+  id: number;
+  cover: string;
+  title: string;
+  community: string;
+  participants: {
+    id: number;
+    type: 'host';
+    name: string;
+    avatar: string;
+  }[];
+};
+
+export const ROOMS: Room[] = new Array(10).fill(0).map((_, i) => {
   return {
     id: i,
     cover: COVER,
@@ -160,3 +173,39 @@ export const ReportTypes = [
     description: 'Kindly provide the reason why you are reporting this story',
   },
 ];
+
+export type Community = {
+  id: number;
+  name: string;
+  avatar: string;
+  members: Profile[];
+  status?: 'member';
+  description: string;
+  type: 'free' | 'paid';
+  rules: {name: string; description: string}[];
+};
+
+export const Communities: Community[] = new Array(10).fill(0).map((_, i) => {
+  return {
+    id: i,
+    type: 'free',
+    avatar: COVER,
+    name: 'Reynolds Andrews lovers',
+    rules: new Array(10).fill(0).map(() => {
+      return {
+        name: 'Molestie diam.',
+        description:
+          'Only members have access to this community and can interact with it, see who is a member as well as what everyone else post',
+      };
+    }),
+    members: new Array(10).fill(0).map((_, j) => {
+      return {
+        id: j,
+        avatar: COVER,
+        name: 'Reynolds Andrews',
+      };
+    }),
+    description:
+      'Everything Reynold Andrews, love, family, books, life, fans, travel and more',
+  };
+});

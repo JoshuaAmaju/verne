@@ -6,15 +6,16 @@ import {StyleSheet} from 'react-native';
 export default function IconButton({
   icon: Icon,
   style,
+  appearance = 'ghost',
   ...props
 }: ButtonProps & {icon: React.FC<SvgProps>}) {
   return (
     <Button
       {...props}
-      appearance="ghost"
+      appearance={appearance}
       style={[styles.button, style]}
-      accessoryLeft={({style}: any) => (
-        <Icon {...style} color={style.tintColor} />
+      accessoryLeft={(attr: any) => (
+        <Icon {...attr.style} color={attr.tintColor} />
       )}
     />
   );

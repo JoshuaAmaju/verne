@@ -10,7 +10,12 @@ import PersonIconFill from '../../assets/icons/person.fill.svg';
 import PersonIcon from '../../assets/icons/person.svg';
 import SearchIcon from '../../assets/icons/search.svg';
 import colors from '../../theme/colors';
+
 import Home from './home';
+import Explore from './explore';
+import Community from './community';
+import Account from './account';
+import Library from './library';
 
 const Tab = createBottomTabNavigator();
 
@@ -60,11 +65,17 @@ export default function Tabs() {
       })}>
       <Tab.Screen name="Home" component={Home} />
 
-      <Tab.Screen name="Explore" component={Home} />
+      <Tab.Screen name="Explore" component={Explore} />
 
-      <Tab.Screen name="Library" component={Home} />
-      <Tab.Screen name="Community" component={Home} />
-      <Tab.Screen name="Account" component={Home} />
+      <Tab.Screen
+        name="Library"
+        component={Library}
+        options={{headerShown: true}}
+      />
+
+      <Tab.Screen name="Community" component={Community} />
+
+      <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
   );
 }

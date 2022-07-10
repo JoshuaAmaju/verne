@@ -24,6 +24,9 @@ import Comments from './screens/comments';
 import Report from './screens/report';
 import SingleReport from './screens/report/single';
 import colors from './theme/colors';
+import BackButton from './shared/components/BackButton';
+import EditProfile from './screens/main/account/screens/edit';
+import AccountType from './screens/main/account/screens/type';
 
 const theme = {
   ...DefaultTheme,
@@ -53,7 +56,12 @@ export default function App() {
       <NativeBaseProvider>
         <PaperProvider theme={theme}>
           <NavigationContainer>
-            <Stack.Navigator screenOptions={{headerShadowVisible: false}}>
+            <Stack.Navigator
+              screenOptions={{
+                headerShadowVisible: false,
+                contentStyle: {flex: 1, backgroundColor: '#fff'},
+                headerLeft: props => props.canGoBack && <BackButton />,
+              }}>
               {!onboarded && (
                 <Stack.Screen
                   name="Onboarding"
@@ -68,6 +76,23 @@ export default function App() {
                     name="Main"
                     component={Main}
                     options={{headerShown: false}}
+                  />
+
+                  <Stack.Screen
+                    name="EditProfile"
+                    component={EditProfile}
+                    options={{
+                      title: 'Edit profile',
+                      headerTitleAlign: 'center',
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="AccountType"
+                    component={AccountType}
+                    options={{
+                      title: '',
+                    }}
                   />
                 </Stack.Group>
               ) : (

@@ -1,7 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
 import {Avatar, Text} from '@ui-kitten/components';
-// @ts-ignore
-import abbreviate from 'mout/number/abbreviate';
 import {Box, HStack, VStack} from 'native-base';
 import React from 'react';
 import {
@@ -21,6 +19,7 @@ import CircleChat from '../../../../assets/icons/circle.chat.bubble.svg';
 import Notification from '../../../../assets/icons/notification.svg';
 import colors from '../../../../theme/colors';
 import Entity from '../../../components/entity';
+import Room from '../../../components/room';
 import Section from '../../../components/section';
 import {DATA, ROOMS} from '../../../dummy.data';
 
@@ -114,44 +113,46 @@ export default function Home() {
               contentContainerStyle={{paddingHorizontal: 24}}
               ItemSeparatorComponent={() => <Box width={3} />}
               renderItem={({item}) => {
-                const host = item.participants.find(p => p.type === 'host');
+                // const host = item.participants.find(p => p.type === 'host');
 
-                return (
-                  <VStack
-                    p={5}
-                    space={4}
-                    borderRadius={20}
-                    backgroundColor="mistyrose">
-                    <VStack space={2}>
-                      <Text category="c1">{item.community}</Text>
-                      <Text category="h6" style={{maxWidth: 300}}>
-                        {item.title}
-                      </Text>
-                    </VStack>
+                return <Room {...item} />;
 
-                    <HStack
-                      space={3}
-                      alignItems="center"
-                      justifyContent="space-between">
-                      {host && (
-                        <HStack space={2} alignItems="center">
-                          <HStack space={2} alignItems="center">
-                            <Avatar size="tiny" source={host.avatar} />
-                            <Text category="c2">{host.name}</Text>
-                          </HStack>
+                // return (
+                //   <VStack
+                //     p={5}
+                //     space={4}
+                //     borderRadius={20}
+                //     backgroundColor="mistyrose">
+                //     <VStack space={2}>
+                //       <Text category="c1">{item.community}</Text>
+                //       <Text category="h6" style={{maxWidth: 300}}>
+                //         {item.title}
+                //       </Text>
+                //     </VStack>
 
-                          <View style={styles.hostLabel}>
-                            <Text category="c2">Host</Text>
-                          </View>
-                        </HStack>
-                      )}
+                //     <HStack
+                //       space={3}
+                //       alignItems="center"
+                //       justifyContent="space-between">
+                //       {host && (
+                //         <HStack space={2} alignItems="center">
+                //           <HStack space={2} alignItems="center">
+                //             <Avatar size="tiny" source={host.avatar as any} />
+                //             <Text category="c2">{host.name}</Text>
+                //           </HStack>
 
-                      <Text category="c2">
-                        {abbreviate(item.participants.length)} Listeners
-                      </Text>
-                    </HStack>
-                  </VStack>
-                );
+                //           <View style={styles.hostLabel}>
+                //             <Text category="c2">Host</Text>
+                //           </View>
+                //         </HStack>
+                //       )}
+
+                //       <Text category="c2">
+                //         {abbreviate(item.participants.length)} Listeners
+                //       </Text>
+                //     </HStack>
+                //   </VStack>
+                // );
               }}
             />
           </Section>
@@ -167,6 +168,7 @@ export default function Home() {
                 <Entity
                   {...item}
                   onPress={() => {
+                    // @ts-ignore
                     nav.navigate('Entity', item);
                   }}
                 />
