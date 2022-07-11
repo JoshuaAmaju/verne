@@ -1,3 +1,5 @@
+import * as O from 'fp-ts/Option';
+
 let si = [
   {v: 1e3, s: 'K'},
   {v: 1e6, s: 'M'},
@@ -20,4 +22,8 @@ export function abbreviate(num: number) {
     (num / si[i].v).toFixed(2).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') +
     si[i].s
   );
+}
+
+export function safeParse<T>(...args: Parameters<JSON['parse']>): O.Option<T> {
+  return O.tryCatch(() => JSON.parse(...args));
 }

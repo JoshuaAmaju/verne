@@ -1,33 +1,151 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import create from 'zustand';
+import Store from '@react-native-async-storage/async-storage';
+import React from 'react';
 
-type Value = {onboarded: boolean};
+import {constFalse, identity, pipe} from 'fp-ts/lib/function';
+import * as O from 'fp-ts/Option';
 
-type Actions = {
-  set: (value: Value) => void;
-};
+import {useActor} from '@xstate/react';
+import {
+  BaseActionObject,
+  createMachine,
+  interpret,
+  Interpreter,
+  ResolveTypegenMeta,
+  ServiceMap,
+  TypegenDisabled,
+} from 'xstate';
 
-export const ONBOARDING = 'verne/onboarding';
+import {safeParse} from '../utils';
 
-const store = create<Value & Actions>(set => ({
-  onboarded: true,
-  set: value => set(value),
-}));
+export const key = 'verne/onboarding';
 
-export const selector = ({onboarded}: Value) => onboarded;
+export enum Action {
+  next = 'next',
+  hydrate = 'hydrate',
+  complete = 'complete',
+}
 
-export const set = (onboarded: Value['onboarded']) => {
-  store.getState().set({onboarded});
-};
+export enum State {
+  idle = 'idle',
+  unknown = 'unknown',
+  hydrating = 'hydrating',
+  onboarded = 'onboarded',
+  notOnboarded = 'notOnboarded',
+}
 
-export const save = () => {
-  const state = store.getState().onboarded;
-  return AsyncStorage.setItem(ONBOARDING, JSON.stringify(state));
-};
+export enum NotOnboardedState {
+  intro = 'intro',
+  // signup = 'signup',
+  setup = 'setup',
+}
 
-export const hydrate = async () => {
-  const json = await AsyncStorage.getItem(ONBOARDING);
-  if (json) set(JSON.parse(json));
-};
+type Ctx = {};
 
-export default store;
+type Events = {type: Action};
+
+type States =
+  | {
+      context: Ctx;
+      value: State.onboarded;
+    }
+  | {
+      context: Ctx;
+      value:
+        | State.notOnboarded
+        | {
+            [State.notOnboarded]: NotOnboardedState;
+          };
+    }
+  | {
+      value: State.unknown | {[State.unknown]: State.hydrating};
+      context: Ctx;
+    };
+
+export const config = createMachine<Ctx, Events, States>(
+  {
+    id: 'root',
+    initial: State.unknown,
+
+    states: {
+      [State.unknown]: {
+        initial: State.hydrating,
+        states: {
+          [State.hydrating]: {
+            invoke: {
+              src: 'hydrate',
+              onDone: [
+                {
+                  target: '#' + State.onboarded,
+                  cond: (_, {data}) => data === true,
+                },
+                {
+                  target: '#' + State.notOnboarded,
+                },
+              ],
+            },
+          },
+        },
+      },
+      [State.notOnboarded]: {
+        id: State.notOnboarded,
+        initial: NotOnboardedState.intro,
+
+        on: {
+          [Action.next]: '.' + NotOnboardedState.setup,
+
+          [Action.complete]: {
+            target: State.onboarded,
+            actions: () => {
+              Store.setItem(key, JSON.stringify(true));
+            },
+          },
+        },
+
+        states: {
+          [NotOnboardedState.intro]: {},
+          [NotOnboardedState.setup]: {},
+        },
+      },
+      [State.onboarded]: {
+        type: 'final',
+        id: State.onboarded,
+      },
+    },
+  },
+  {
+    services: {
+      async hydrate() {
+        const json = await Store.getItem(key);
+
+        return pipe(
+          json,
+          O.fromNullable,
+          O.chain(n => safeParse<boolean>(n)),
+          O.fold(constFalse, identity),
+        );
+      },
+    },
+  },
+);
+
+export function create() {
+  return interpret(config).start();
+}
+
+/* ------------------------------ React context ----------------------------- */
+// Passes down a reference to the state machine
+export const Context = React.createContext<
+  Interpreter<
+    Ctx,
+    States,
+    Events,
+    States,
+    ResolveTypegenMeta<TypegenDisabled, Events, BaseActionObject, ServiceMap>
+  >
+>(undefined as any);
+
+export const {Provider} = Context;
+
+export function useContext() {
+  return useActor(React.useContext(Context));
+}

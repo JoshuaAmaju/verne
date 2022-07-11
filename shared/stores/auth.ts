@@ -1,7 +1,38 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import create, {StateCreator, GetState, SetState, StoreApi} from 'zustand';
 
-type Value = {readonly auth: boolean};
+export enum Strategy {
+  google,
+  facebook,
+  local,
+}
+
+export enum Role {
+  reader = 'reader',
+  writer = 'writer',
+  both = 'both',
+}
+
+export type Info = {
+  _id: string;
+  role: Role[];
+  token: string;
+  email: string;
+  about: string;
+  gender: string;
+  username: string;
+  fullname: string;
+  followers: number;
+  following: number;
+  categories: string[];
+  emailVerified: boolean;
+};
+
+type Value = {
+  readonly auth: boolean;
+  readonly data?: Info | null;
+  readonly strategy?: Strategy;
+};
 
 type Actions = {
   set: (value: Partial<Value>) => void;
@@ -18,12 +49,10 @@ const persist =
       args => {
         set(args);
 
-        const {auth, ...rest} = get();
+        const state = get();
 
-        console.log(rest);
-
-        if (auth) {
-          // TODO: save auth state
+        if (state.auth) {
+          AsyncStorage.setItem(AUTH, JSON.stringify(state));
         }
       },
       get,
@@ -33,7 +62,7 @@ const persist =
 
 const store = create<Value & Actions>(
   persist(set => ({
-    auth: true,
+    auth: false,
     set: value => set(value as Value),
   })),
 );
@@ -54,12 +83,16 @@ export const hydrate = async () => {
   if (json) set(JSON.parse(json));
 };
 
-export const login = () => {
-  set({auth: true});
+export const login = (data: Info) => {
+  set({auth: true, data});
+};
+
+export const setData = (data: Info) => {
+  set({data});
 };
 
 export const logout = () => {
-  set({auth: false});
+  set({auth: false, data: null});
 };
 
 export default store;

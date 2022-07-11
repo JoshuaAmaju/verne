@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "844158322703",
+    "project_id": "verne-3c649",
+    "storage_bucket": "verne-3c649.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844158322703:android:7137632ae00d645c793b7a",
+        "android_client_info": {
+          "package_name": "com.verne"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844158322703-13hb60fkk9ih9n2tpso3gsn4a0c7plf0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.verne",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "844158322703-ha2e2dfgrds4v93mm13iacjcunrg246g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzQtREof3Q_-0zuHnBfiXWpi22GU0UEHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844158322703-ha2e2dfgrds4v93mm13iacjcunrg246g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

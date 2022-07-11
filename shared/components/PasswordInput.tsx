@@ -1,10 +1,13 @@
-import {InputProps, Text} from '@ui-kitten/components';
-import React, {useCallback, useState} from 'react';
+import {InputProps, Text, Input as UIInput} from '@ui-kitten/components';
+import React, {forwardRef, useCallback, useState} from 'react';
 import {TouchableNativeFeedback} from 'react-native';
 import colors from '../../theme/colors';
 import Input from './Input';
 
-export default function PasswordInput({style, ...props}: InputProps) {
+export default forwardRef<UIInput, InputProps>(function PasswordInput(
+  {style, ...props},
+  ref,
+) {
   const [isSecureEntry, setSecureEntry] = useState(true);
 
   const toggle = useCallback(() => {
@@ -14,6 +17,7 @@ export default function PasswordInput({style, ...props}: InputProps) {
   return (
     <Input
       {...props}
+      ref={ref}
       style={style}
       secureTextEntry={isSecureEntry}
       accessoryRight={() => (
@@ -25,4 +29,4 @@ export default function PasswordInput({style, ...props}: InputProps) {
       )}
     />
   );
-}
+});

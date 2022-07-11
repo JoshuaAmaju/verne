@@ -114,7 +114,7 @@ export default function Onboarding() {
             <Button
               onPress={() => {
                 nav.navigate('Signup' as any);
-                set(true);
+                // set(true);
               }}>
               Join for free
             </Button>

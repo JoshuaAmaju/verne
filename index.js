@@ -8,8 +8,10 @@ import {name as appName} from './app.json';
 import {hydrate as hydrateAuth} from './shared/stores/auth';
 import {hydrate as hydrateOnboarding} from './shared/stores/onborading';
 
-hydrateOnboarding();
+// import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
-hydrateAuth();
+// hydrateOnboarding();
+
+// hydrateAuth();
 
 AppRegistry.registerComponent(appName, () => App);

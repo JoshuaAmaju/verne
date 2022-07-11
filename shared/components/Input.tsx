@@ -1,10 +1,13 @@
-import React from 'react';
 import {Input as UIKInput, InputProps} from '@ui-kitten/components';
+import React, {forwardRef} from 'react';
 import {StyleSheet} from 'react-native';
 
-export default function Input({style, ...props}: InputProps) {
-  return <UIKInput {...props} style={[style, styles.input]} />;
-}
+export default forwardRef<UIKInput, InputProps>(function Input(
+  {style, ...props},
+  ref,
+) {
+  return <UIKInput {...props} ref={ref} style={[style, styles.input]} />;
+});
 
 const styles = StyleSheet.create({
   input: {
