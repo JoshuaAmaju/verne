@@ -24,15 +24,17 @@ import PasswordInput from '../shared/components/PasswordInput';
 import * as auth from '../shared/stores/auth';
 import colors from '../theme/colors';
 
-import axios, {AxiosError} from 'axios';
 import * as z from 'zod';
+import axios, {AxiosError} from 'axios';
+import {showMessage} from 'react-native-flash-message';
 
 import {api_url} from '@env';
 import {displayName} from '../app.json';
 
 import {factory} from '@shared/lib/form';
 import {useForm} from '@shared/lib/form/hook';
-import {showMessage} from 'react-native-flash-message';
+
+import * as onboarding from '@shared/stores/onborading';
 
 const schema = z.object({
   username: z.string(),
@@ -67,6 +69,8 @@ export default function Login() {
   const nav = useNavigation();
 
   const passwordRef = createRef<UIInput>();
+
+  const [, send] = onboarding.useContext();
 
   const form = useRef(
     factory<Form, FormErrors, FormData, Res>({
@@ -131,9 +135,11 @@ export default function Login() {
 
       auth.login(data.data);
 
+      send(onboarding.Action.complete);
+
       // nav.navigate('Setup.Initial' as any);
     }
-  }, [submitted, data]);
+  }, [submitted, data, send]);
 
   useEffect(() => {
     if (isError && error) {
