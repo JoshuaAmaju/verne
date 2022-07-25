@@ -88,7 +88,8 @@ export const login = (data: Info) => {
 };
 
 export const setData = (data: Info) => {
-  set({data});
+  const state = store.getState().data ?? {};
+  set({data: {...state, ...data}});
 };
 
 export const logout = () => {

@@ -32,7 +32,7 @@ import * as onboarding from '@shared/stores/onborading';
 
 import {useTheme} from 'react-native-paper';
 import {displayName} from '../../app.json';
-import {get_categories} from '@shared/services/category';
+import {get_all} from '@shared/services/category';
 
 const types: {value: Role; label: string}[] = [
   {
@@ -122,7 +122,7 @@ export function Categories() {
   const {params = {} as any} = useRoute();
   const [categories, setCategory] = useState<string[]>([]);
 
-  const query = useQuery(['categories'], get_categories);
+  const query = useQuery(['categories'], get_all);
 
   return (
     <View style={[styles.expand, styles.between]}>

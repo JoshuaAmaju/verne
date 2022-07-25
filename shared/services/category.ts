@@ -6,7 +6,7 @@ type Category = {
   imageUrl: string;
 };
 
-export async function get_categories(): Promise<Category[]> {
+export async function get_all(): Promise<Category[]> {
   const {data} = await http.get('/category/all');
   return data;
 }
