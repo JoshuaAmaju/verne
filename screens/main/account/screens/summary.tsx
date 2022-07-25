@@ -15,8 +15,20 @@ import {COVER} from '../../../dummy.data';
 import Exit from '../../../../assets/icons/exit.svg';
 import {useNavigation} from '@react-navigation/native';
 
+import authStore, {logout} from '@shared/stores/auth';
+import {abbreviate} from '@shared/utils';
+import {Colors} from 'react-native-paper';
+
 export default function Summary() {
   const nav = useNavigation();
+
+  const {
+    about,
+    fullname,
+    username,
+    following = 0,
+    followers = 0,
+  } = authStore(n => n.data!);
 
   return (
     <>
@@ -34,9 +46,9 @@ export default function Summary() {
                 />
 
                 <VStack space={1}>
-                  <Text category="h2">Jane Andrews</Text>
+                  <Text category="h2">{fullname || 'No name'}</Text>
                   <Text category="p1" style={{color: '#798486'}}>
-                    @jane12
+                    @{username}
                   </Text>
                 </VStack>
               </HStack>
@@ -51,7 +63,11 @@ export default function Summary() {
 
             <VStack space={3}>
               <Text>
-                Just here to read great stories and connect with amazing people
+                {about || (
+                  <Text category="p1" style={{color: Colors.grey400}}>
+                    Write something about yourself
+                  </Text>
+                )}
               </Text>
 
               <HStack space={6}>
@@ -61,7 +77,7 @@ export default function Summary() {
                     nav.navigate('People', {screen: 'Followers'});
                   }}>
                   <Text category="p1">
-                    100.8k{' '}
+                    {abbreviate(followers)}{' '}
                     <Text category="p2" style={{color: '#383838'}}>
                       Followers
                     </Text>
@@ -74,7 +90,7 @@ export default function Summary() {
                     nav.navigate('People', {screen: 'Following'});
                   }}>
                   <Text category="p1">
-                    20k{' '}
+                    {abbreviate(following)}{' '}
                     <Text category="p2" style={{color: '#383838'}}>
                       Following
                     </Text>
@@ -171,7 +187,7 @@ export default function Summary() {
 
           {/* footer */}
           <VStack alignItems="center" justifyContent="center">
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => logout()}>
               <HStack space={3} alignItems="center" style={styles.logout}>
                 <Exit width={20} height={20} color="#EE404C" />
                 <Text category="p1">Logout</Text>
