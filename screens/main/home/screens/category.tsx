@@ -1,7 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {IndexPath, MenuItem, OverflowMenu, Text} from '@ui-kitten/components';
-// @ts-ignore
-import abbreviate from 'mout/number/abbreviate';
 import {Box, HStack, VStack} from 'native-base';
 import React, {useCallback, useLayoutEffect, useState} from 'react';
 import {
@@ -24,6 +22,12 @@ import Entity from '../../../components/entity';
 import Section from '../../../components/section';
 import {CATEGORIES, DATA} from '../../../dummy.data';
 
+import {useQuery} from 'react-query';
+import {abbreviate} from '@shared/utils';
+
+import * as Story from '@shared/services/story';
+// import * as Category from '@shared/services/category';
+
 export default function Home() {
   const hero = DATA[0];
   const nav = useNavigation();
@@ -35,6 +39,16 @@ export default function Home() {
 
   const [sortVisible, setVisible] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<IndexPath>();
+
+  // const category = useQuery(['category', id], () => Category);
+
+  // const recent = useQuery(['recent_stories_by_category', id], () => {
+  //   return Story.get_recentlyAdded();
+  // });
+
+  const stories = useQuery(['stories_by_category', id], () => {
+    return Story.get_byCategory(id);
+  });
 
   const onItemSelect = useCallback<(index: IndexPath) => void>(index => {
     setSelectedIndex(index);
@@ -136,41 +150,43 @@ export default function Home() {
             </HStack>
 
             <VStack space={6}>
-              {DATA.map(d => {
+              {stories.data?.map(story => {
                 return (
-                  <HStack key={d.id} space={6} px={6}>
+                  <HStack key={story._id} space={6} px={6}>
                     <Image
-                      source={d.cover}
+                      source={{uri: story.coverimageUrl}}
                       style={{width: 90, height: '100%', borderRadius: 8}}
                     />
 
                     <VStack space={3} flex={1}>
                       <VStack space={2}>
                         <VStack space="0.5">
-                          <Text category="s1">{d.title}</Text>
-                          <Text category="c1">{d.author}</Text>
+                          <Text category="s1">{story.title}</Text>
+                          <Text category="c1">{story.author}</Text>
                         </VStack>
 
                         <HStack space={8}>
                           <HStack space={1} alignItems="center">
-                            <Text category="p2">{d.rating}</Text>
+                            <Text category="p2">{story.rating}</Text>
                             <Star width={13} height={13} color="#FFC107" />
                           </HStack>
 
                           <HStack space={1} alignItems="center">
-                            <Text category="p2">{abbreviate(20200)}</Text>
+                            <Text category="p2">{abbreviate(story.views)}</Text>
                             <Eye width={13} height={13} color="#000" />
                           </HStack>
 
                           <HStack space={1} alignItems="center">
-                            <Text category="p2">{abbreviate(3800)}</Text>
+                            <Text category="p2">
+                              {abbreviate(story.comments)}
+                            </Text>
                             <ChatSquare width={13} height={13} color="#000" />
                           </HStack>
                         </HStack>
                       </VStack>
 
                       <Text category="p2" numberOfLines={2}>
-                        {d.summary}
+                        {story.summary}
                       </Text>
                     </VStack>
                   </HStack>

@@ -1,6 +1,5 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
-import {SvgProps} from 'react-native-svg';
 import GlobeIcon from '../../assets/icons/globe.svg';
 import HomeIconFill from '../../assets/icons/home.fill.svg';
 import HomeIcon from '../../assets/icons/home.svg';
@@ -9,13 +8,18 @@ import LibraryIcon from '../../assets/icons/library.svg';
 import PersonIconFill from '../../assets/icons/person.fill.svg';
 import PersonIcon from '../../assets/icons/person.svg';
 import SearchIcon from '../../assets/icons/search.svg';
+
+import WriteIconFill from '../../assets/icons/write.fill.svg';
+import WriteIcon from '../../assets/icons/write.svg';
+
 import colors from '../../theme/colors';
 
-import Home from './home';
-import Explore from './explore';
-import Community from './community';
 import Account from './account';
+import Community from './community';
+import Explore from './explore';
+import Home from './home';
 import Library from './library';
+import Write from './write';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +28,7 @@ export default function Tabs() {
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
-          let Icon: React.FC<SvgProps>;
+          let Icon = focused ? HomeIconFill : HomeIcon;
 
           switch (route.name) {
             case 'Home':
@@ -43,9 +47,13 @@ export default function Tabs() {
               Icon = focused ? PersonIconFill : PersonIcon;
               break;
 
-            default:
-              Icon = focused ? HomeIconFill : HomeIcon;
+            case 'Write':
+              Icon = focused ? WriteIconFill : WriteIcon;
               break;
+
+            // default:
+            //   Icon = focused ? HomeIconFill : HomeIcon;
+            //   break;
           }
 
           // You can return any component that you like here!
@@ -76,6 +84,8 @@ export default function Tabs() {
       <Tab.Screen name="Community" component={Community} />
 
       <Tab.Screen name="Account" component={Account} />
+
+      <Tab.Screen name="Write" component={Write} />
     </Tab.Navigator>
   );
 }

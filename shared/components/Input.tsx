@@ -6,7 +6,7 @@ export default forwardRef<UIKInput, InputProps>(function Input(
   {style, ...props},
   ref,
 ) {
-  return <UIKInput {...props} ref={ref} style={[style, styles.input]} />;
+  return <UIKInput {...props} ref={ref} style={[styles.input, style]} />;
 });
 
 const styles = StyleSheet.create({

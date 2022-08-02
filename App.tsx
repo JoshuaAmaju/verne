@@ -37,6 +37,10 @@ import SingleReport from './screens/report/single';
 import EditProfile from './screens/main/account/screens/edit';
 import AccountType from './screens/main/account/screens/type';
 
+import Write from './screens/main/write/screens/write_story/write';
+import WriteSummary from './screens/main/write/screens/write_story/summary';
+import StoryCategory from './screens/main/write/screens/write_story/category';
+
 const theme = {
   ...DefaultTheme,
   roundness: 2,
@@ -177,6 +181,16 @@ function Root() {
               <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
               <Stack.Screen name="OTP" component={OTP} />
               <Stack.Screen name="ResetPassword" component={ResetPassword} />
+            </Stack.Group>
+
+            <Stack.Screen name="Category" component={StoryCategory} />
+
+            <Stack.Group screenOptions={{title: ''}}>
+              <Stack.Screen
+                component={WriteSummary}
+                name="Writer.WriteSummary"
+              />
+              <Stack.Screen name="Writer.WriteStory" component={Write} />
             </Stack.Group>
           </Stack.Group>
         )}

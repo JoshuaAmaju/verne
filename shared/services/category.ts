@@ -1,6 +1,6 @@
 import {http} from '@shared/http';
 
-type Category = {
+export type Category = {
   _id: string;
   name: string;
   imageUrl: string;

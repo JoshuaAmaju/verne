@@ -23,11 +23,16 @@ import Room from '../../../components/room';
 import Section from '../../../components/section';
 import {DATA, ROOMS} from '../../../dummy.data';
 
+import * as Category from '@shared/services/category';
+import {useQuery} from 'react-query';
+
 const {width} = Dimensions.get('screen');
 
 export default function Home() {
   const hero = DATA[0];
   const nav = useNavigation();
+
+  const categories = useQuery(['categories'], Category.get_all);
 
   return (
     <>
@@ -82,16 +87,16 @@ export default function Home() {
 
             <FlatList
               horizontal
-              data={hero.categories}
+              data={categories.data}
+              keyExtractor={item => item._id}
               contentContainerStyle={{padding: 16}}
               showsHorizontalScrollIndicator={false}
-              keyExtractor={item => item.id.toString()}
               ItemSeparatorComponent={() => <Box width={2} />}
               renderItem={({item}) => {
                 return (
                   <TouchableOpacity
                     // @ts-ignore
-                    onPress={() => nav.navigate('Category', item)}>
+                    onPress={() => nav.navigate('Category', {id: item._id})}>
                     <View style={styles.categoryPill}>
                       <Text category="label" style={styles.pillLabel}>
                         {item.name}
