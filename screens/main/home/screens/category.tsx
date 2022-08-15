@@ -18,7 +18,7 @@ import Settings from '../../../../assets/icons/settings.svg';
 import ChatSquare from '../../../../assets/icons/square.chat.bubble.svg';
 import Star from '../../../../assets/icons/star.svg';
 import colors from '../../../../theme/colors';
-import Entity from '../../../components/entity';
+import Story from '../../../components/story';
 import Section from '../../../components/section';
 import {CATEGORIES, DATA} from '../../../dummy.data';
 
@@ -116,7 +116,7 @@ export default function Home() {
               horizontal
               data={DATA}
               showsHorizontalScrollIndicator={false}
-              renderItem={({item}) => <Entity {...item} />}
+              renderItem={({item}) => <Story {...item} />}
               contentContainerStyle={{paddingHorizontal: 24}}
               ItemSeparatorComponent={() => <Box width={3} />}
             />

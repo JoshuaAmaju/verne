@@ -1,18 +1,17 @@
-import {useNavigation} from '@react-navigation/native';
-import {Input, Layout, Text} from '@ui-kitten/components';
-import {Box, HStack, Select, VStack} from 'native-base';
+import {Text} from '@ui-kitten/components';
+import {Box, HStack, VStack} from 'native-base';
 import React, {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Image from 'react-native-fast-image';
-import {IconButton} from 'react-native-paper';
 import ThumbsUpFill from '../assets/icons/thumbsup.fill.svg';
-import Xmark from '../assets/icons/xmark.svg';
-import {abbreviate} from '../shared/utils';
-import type {Comment as IComment} from './dummy.data';
-import {COMMENTS, PROFILES} from './dummy.data';
+import {abbreviate} from '../../shared/utils';
+import {Comment as IComment} from '../dummy.data';
+import {COMMENTS, PROFILES} from '../dummy.data';
 
-const Reply = ({reply}: {reply: IComment}) => {
-  const {user, likes, comment} = reply;
+import firestore from '@react-native-firebase/firestore';
+
+export function Reply({reply, depth = 3}: {reply: IComment; depth?: number}) {
+  const {id, user, likes, comment} = reply;
   const profile = PROFILES.find(p => p.id === user);
 
   const [expanded, setExpanded] = useState(false);
@@ -22,6 +21,22 @@ const Reply = ({reply}: {reply: IComment}) => {
   const previewUser = PROFILES.find(p => p.id === previewReply.user);
 
   const [replies, setReplies] = useState(COMMENTS.slice(0, 2));
+
+  useEffect(() => {
+    const store = firestore().collection('comments').doc(type).collection(id);
+
+    const unsubscribe = store.onSnapshot(snapshot => {
+      for (const doc of snapshot.docs) {
+        const docId = doc.id;
+        const data = doc.data();
+        console.log(docId, data);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [id]);
 
   return (
     <HStack space={4}>
@@ -79,9 +94,11 @@ const Reply = ({reply}: {reply: IComment}) => {
             })}
 
             <TouchableOpacity
-              onPress={() => setReplies(COMMENTS)}
-              style={{marginStart: 40, color: '#383838'}}>
-              <Text category="p2">View more replies</Text>
+              style={{marginStart: 40}}
+              onPress={() => setReplies(COMMENTS)}>
+              <Text category="p2" style={{color: '#383838'}}>
+                View more replies
+              </Text>
             </TouchableOpacity>
           </VStack>
         ) : (
@@ -118,66 +135,9 @@ const Reply = ({reply}: {reply: IComment}) => {
       </VStack>
     </HStack>
   );
-};
-
-export default function Comments() {
-  const nav = useNavigation();
-  const [selectedIndex, setSelectedIndex] = useState('0');
-
-  useEffect(() => {
-    nav.setOptions({
-      headerRight: () => (
-        <IconButton
-          size={15}
-          onPress={() => nav.goBack()}
-          icon={({size, color}) => (
-            <Xmark width={size} height={size} color={color} />
-          )}
-        />
-      ),
-    });
-  }, [nav]);
-
-  return (
-    <Layout style={styles.expand}>
-      <FlatList
-        data={COMMENTS}
-        ItemSeparatorComponent={() => <Box h={5} />}
-        ListHeaderComponentStyle={{marginBottom: 30}}
-        renderItem={({item}) => <Reply reply={item} />}
-        contentContainerStyle={{paddingHorizontal: 24, paddingVertical: 40}}
-        ListHeaderComponent={
-          <View style={{maxWidth: '40%'}}>
-            <Select
-              selectedValue={selectedIndex}
-              onValueChange={index => setSelectedIndex(index)}>
-              <Select.Item value="0" label="All comments" />
-              <Select.Item value="1" label="Top rated" />
-              <Select.Item value="2" label="Most viewed" />
-            </Select>
-          </View>
-        }
-      />
-
-      <Box px={4} pt={2} pb={16}>
-        <Input
-          style={styles.messageBox}
-          placeholder="Write a comment"
-          textStyle={{paddingVertical: 5}}
-        />
-      </Box>
-    </Layout>
-  );
 }
 
 const styles = StyleSheet.create({
-  expand: {
-    flex: 1,
-  },
-  messageBox: {
-    borderRadius: 100,
-    backgroundColor: '#EBEBEB',
-  },
   tiny: {
     width: 20,
     height: 20,

@@ -18,7 +18,7 @@ import {FlatGrid} from 'react-native-super-grid';
 import CircleChat from '../../../../assets/icons/circle.chat.bubble.svg';
 import Notification from '../../../../assets/icons/notification.svg';
 import colors from '../../../../theme/colors';
-import Entity from '../../../components/entity';
+import Story from '../../../components/story';
 import Room from '../../../components/room';
 import Section from '../../../components/section';
 import {DATA, ROOMS} from '../../../dummy.data';
@@ -170,7 +170,7 @@ export default function Home() {
               contentContainerStyle={{paddingHorizontal: 24}}
               ItemSeparatorComponent={() => <Box width={3} />}
               renderItem={({item}) => (
-                <Entity
+                <Story
                   {...item}
                   onPress={() => {
                     // @ts-ignore
@@ -225,7 +225,7 @@ export default function Home() {
               horizontal
               data={DATA}
               showsHorizontalScrollIndicator={false}
-              renderItem={({item}) => <Entity {...item} />}
+              renderItem={({item}) => <Story {...item} />}
               contentContainerStyle={{paddingHorizontal: 24}}
               ItemSeparatorComponent={() => <Box width={3} />}
             />

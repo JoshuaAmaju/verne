@@ -11,7 +11,7 @@ import {Entity as TEntity} from '../dummy.data';
 import Image from 'react-native-fast-image';
 import Star from '../../assets/icons/star.svg';
 
-export default function Entity({
+export default function Story({
   cover,
   title,
   author,
