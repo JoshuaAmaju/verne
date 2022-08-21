@@ -2,18 +2,16 @@ import React from 'react';
 import {ActivityIndicator, useTheme} from 'react-native-paper';
 
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {useNavigation} from '@react-navigation/native';
 import {COVER} from '@screens/dummy.data';
 import Screen from '@shared/components/Screen';
 import {MoreVertical} from '@shared/exports/icons';
-import {http} from '@shared/http';
-import {Pageable} from '@shared/types/server_response';
 import {Story} from '@shared/types/story';
 import {Text} from '@ui-kitten/components';
 import {formatDistanceToNow} from 'date-fns';
 import {Box, HStack, VStack} from 'native-base';
 import {FlatList, Image, TouchableOpacity} from 'react-native';
 import {useQuery} from 'react-query';
-import {useNavigation} from '@react-navigation/native';
 
 const Tab = createMaterialTopTabNavigator();
 

@@ -29,7 +29,7 @@ import ForgotPassword from './screens/password/forgot';
 import ResetPassword from './screens/password/reset';
 import OTP from './screens/password/otp';
 import Main from './screens/main';
-import Entity from './screens/entity';
+import Story from './screens/story';
 import Reader from './screens/reader';
 import Comments from './screens/comments';
 import Report from './screens/report';
@@ -145,7 +145,7 @@ function Root() {
 
             <Stack.Screen
               name="Entity"
-              component={Entity}
+              component={Story}
               options={{
                 title: '',
                 headerTintColor: '#fff',

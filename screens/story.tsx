@@ -33,7 +33,7 @@ const IconProps = {
   color: '#fff',
 };
 
-export default function Entity() {
+export default function Story() {
   const nav = useNavigation();
   const {params = {} as any} = useRoute();
 
@@ -222,7 +222,11 @@ export default function Entity() {
       </ScrollView>
 
       <Box mx={6} mb={8}>
-        <Button onPress={() => nav.navigate('Reader', {entity: params})}>
+        <Button
+          onPress={() => {
+            // @ts-ignore
+            nav.navigate('Reader', {entity: params});
+          }}>
           Start reading
         </Button>
       </Box>
