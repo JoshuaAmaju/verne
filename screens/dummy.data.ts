@@ -43,9 +43,9 @@ const content = arrayTen.map(
 
 export const DATA: Entity[] = new Array(10).fill(0).map((_, i) => {
   return {
-    id: i,
     rating: 4.5,
     cover: COVER,
+    id: i.toString(),
     categories: CATEGORIES,
     title: 'A plan too late',
     author: 'Reynolds Andrews',
@@ -93,15 +93,15 @@ export const ROOMS: Room[] = new Array(10).fill(0).map((_, i) => {
 });
 
 type Profile = {
-  id: number;
+  id: string;
   name: string;
   avatar: string;
 };
 
 export const PROFILES: Profile[] = new Array(10).fill(0).map((_, i) => {
   return {
-    id: i,
     avatar: COVER,
+    id: i.toString(),
     name: 'Reynolds Andrews',
   };
 });

@@ -8,6 +8,7 @@ export const http = axios.create({baseURL: api_url});
 http.interceptors.request.use(request => {
   const {token} = auth.getState().data!;
   (request.headers as any).Authorization = `Bearer ${token}`;
+  // console.log(token);
   return request;
 });
 
@@ -21,7 +22,9 @@ http.interceptors.response.use(
 
     const err = (error as AxiosError).response?.data ?? (error as Error);
 
-    // console.log(originalRequest);
+    // console.log('error', error);
+
+    console.log('http error interceptor', (error as AxiosError).response);
 
     return Promise.reject(err);
   },

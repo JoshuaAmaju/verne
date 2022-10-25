@@ -1,48 +1,65 @@
 import {Text} from '@ui-kitten/components';
 import {Box, HStack, VStack} from 'native-base';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Image from 'react-native-fast-image';
-import ThumbsUpFill from '../assets/icons/thumbsup.fill.svg';
+import ThumbsUpFill from '../../assets/icons/thumbsup.fill.svg';
 import {abbreviate} from '../../shared/utils';
-import {Comment as IComment} from '../dummy.data';
-import {COMMENTS, PROFILES} from '../dummy.data';
+// import {Comment as IComment} from '../dummy.data';
+import {PROFILES} from '../dummy.data';
 
-import firestore from '@react-native-firebase/firestore';
+import {formatDistanceToNowStrict} from 'date-fns';
+
+import {Comment as IComment} from './types';
+
+import {useProvider} from './provider';
 
 export function Reply({reply, depth = 3}: {reply: IComment; depth?: number}) {
-  const {id, user, likes, comment} = reply;
-  const profile = PROFILES.find(p => p.id === user);
+  console.log(depth);
+
+  const {id, by, likes, content, createdAt} = reply;
+
+  const provider = useProvider();
+
+  const profile = PROFILES.find(p => p.id === by);
 
   const [expanded, setExpanded] = useState(false);
+  const [displayAll, setDisplayAll] = useState(false);
 
-  const previewReply = COMMENTS[0];
+  const filteredReplies = provider.comments.filter(
+    comment => comment.replyingTo === id,
+  );
 
-  const previewUser = PROFILES.find(p => p.id === previewReply.user);
+  const previewReply = filteredReplies[0];
 
-  const [replies, setReplies] = useState(COMMENTS.slice(0, 2));
+  const previewUser =
+    previewReply && PROFILES.find(p => p.id === previewReply.by);
 
-  useEffect(() => {
-    const store = firestore().collection('comments').doc(type).collection(id);
+  const replies = displayAll ? filteredReplies : filteredReplies.slice(0, 2);
 
-    const unsubscribe = store.onSnapshot(snapshot => {
-      for (const doc of snapshot.docs) {
-        const docId = doc.id;
-        const data = doc.data();
-        console.log(docId, data);
-      }
-    });
+  // const [replies, setReplies] = useState(COMMENTS.slice(0, 2));
 
-    return () => {
-      unsubscribe();
-    };
-  }, [id]);
+  // useEffect(() => {
+  //   const store = firestore().collection('comments').doc(type).collection(id);
+
+  //   const unsubscribe = store.onSnapshot(snapshot => {
+  //     for (const doc of snapshot.docs) {
+  //       const docId = doc.id;
+  //       const data = doc.data();
+  //       console.log(docId, data);
+  //     }
+  //   });
+
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [id]);
 
   return (
     <HStack space={4}>
       {profile && (
         <Image
-          source={require('../assets/png/img.jpg')}
+          source={require('../../assets/png/img.jpg')}
           style={{width: 40, height: 40, borderRadius: 100}}
         />
       )}
@@ -51,11 +68,13 @@ export function Reply({reply, depth = 3}: {reply: IComment; depth?: number}) {
         <VStack space={2}>
           <VStack space={4} p={4} bg="#EFFBF9" borderRadius={18}>
             <Text>{profile?.name}</Text>
-            <Text numberOfLines={3}>{comment}</Text>
+            <Text numberOfLines={3}>{content}</Text>
           </VStack>
 
           <HStack ml={4} space={6} alignItems="center">
-            <Text category="p2">9h</Text>
+            <Text category="p2">
+              {formatDistanceToNowStrict(new Date(createdAt))}
+            </Text>
 
             <HStack space={1} alignItems="center">
               <TouchableOpacity onPress={() => {}}>
@@ -74,20 +93,20 @@ export function Reply({reply, depth = 3}: {reply: IComment; depth?: number}) {
         {expanded ? (
           <VStack space={4}>
             {replies.map(c => {
-              const subProfile = PROFILES.find(p => p.id === c.user);
+              const subProfile = PROFILES.find(p => p.id === c.by);
 
               return (
                 <HStack key={c.id} space={4}>
                   {subProfile && (
                     <Image
                       style={styles.tiny}
-                      source={require('../assets/png/img.jpg')}
+                      source={require('../../assets/png/img.jpg')}
                     />
                   )}
 
                   <VStack space={4} p={4} bg="#EFFBF9" borderRadius={18}>
                     <Text>{subProfile?.name}</Text>
-                    <Text numberOfLines={2}>{c.comment}</Text>
+                    <Text numberOfLines={2}>{c.content}</Text>
                   </VStack>
                 </HStack>
               );
@@ -95,7 +114,7 @@ export function Reply({reply, depth = 3}: {reply: IComment; depth?: number}) {
 
             <TouchableOpacity
               style={{marginStart: 40}}
-              onPress={() => setReplies(COMMENTS)}>
+              onPress={() => setDisplayAll(true)}>
               <Text category="p2" style={{color: '#383838'}}>
                 View more replies
               </Text>
@@ -108,7 +127,7 @@ export function Reply({reply, depth = 3}: {reply: IComment; depth?: number}) {
                 <HStack space={1} alignItems="center">
                   <Image
                     style={styles.tiny}
-                    source={require('../assets/png/img.jpg')}
+                    source={require('../../assets/png/img.jpg')}
                   />
 
                   {previewUser && (
@@ -127,7 +146,9 @@ export function Reply({reply, depth = 3}: {reply: IComment; depth?: number}) {
 
                 <Box w={1} h={1} bg="#D1D1D1" borderRadius={100} />
 
-                <Text category="p2">{abbreviate(COMMENTS.length)} Replies</Text>
+                <Text category="p2">
+                  {abbreviate(filteredReplies.length)} Replies
+                </Text>
               </HStack>
             </TouchableOpacity>
           </View>

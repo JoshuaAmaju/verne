@@ -2,7 +2,7 @@ import * as eva from '@eva-design/eva';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ApplicationProvider} from '@ui-kitten/components';
-import {NativeBaseProvider} from 'native-base';
+import {Box, NativeBaseProvider} from 'native-base';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import React, {useLayoutEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
@@ -37,9 +37,8 @@ import SingleReport from './screens/report/single';
 import EditProfile from './screens/main/account/screens/edit';
 import AccountType from './screens/main/account/screens/type';
 
-import Write from './screens/main/write/screens/write_story/write';
-import WriteSummary from './screens/main/write/screens/write_story/summary';
-import StoryCategory from './screens/main/write/screens/write_story/category';
+import WriteStory from './screens/main/write/screens/write_story';
+import Write from './screens/main/write/screens/write_story/screens/write';
 
 const theme = {
   ...DefaultTheme,
@@ -70,14 +69,16 @@ function Root() {
 
   console.log(
     onboardingState.value,
-    onboardingState.matches({
-      [onboardingStore.State.notOnboarded]:
-        onboardingStore.NotOnboardedState.setup,
-    }),
+    onboardingState.events,
+    onboardingState.event,
   );
 
   if (isHydratingOnboarding) {
-    return <ActivityIndicator />;
+    return (
+      <Box flex={1} alignItems="center" justifyContent="center">
+        <ActivityIndicator />
+      </Box>
+    );
   }
 
   return (
@@ -183,15 +184,19 @@ function Root() {
               <Stack.Screen name="ResetPassword" component={ResetPassword} />
             </Stack.Group>
 
-            <Stack.Screen name="Category" component={StoryCategory} />
+            {/* <Stack.Screen name="Category" component={StoryCategory} /> */}
 
-            <Stack.Group screenOptions={{title: ''}}>
-              <Stack.Screen
-                component={WriteSummary}
-                name="Writer.WriteSummary"
-              />
-              <Stack.Screen name="Writer.WriteStory" component={Write} />
-            </Stack.Group>
+            <Stack.Screen
+              component={WriteStory}
+              name="Writer.WriteStory"
+              options={{headerShown: false}}
+            />
+
+            <Stack.Screen
+              component={Write}
+              name="Writer.Write"
+              options={{title: ''}}
+            />
           </Stack.Group>
         )}
 

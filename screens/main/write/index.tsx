@@ -2,6 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 
 import BackButton from '@shared/components/BackButton';
+
 import Intro from './screens/intro';
 import Stories from './screens/stories';
 import Story from './screens/story';
@@ -29,13 +30,11 @@ export default function Writer() {
         options={{title: 'My stories'}}
       />
 
-      <Stack.Screen name="Story" component={Story} />
-      {/* <Stack.Screen name="Category" component={StoryCategory} /> */}
-
-      {/* <Stack.Group screenOptions={{title: ''}}>
-        <Stack.Screen name="Summary" component={WriteSummary} />
-        <Stack.Screen name="Write" component={Write} />
-      </Stack.Group> */}
+      <Stack.Screen
+        component={Story}
+        name="Writer.Story"
+        options={{title: ''}}
+      />
     </Stack.Navigator>
   );
 }

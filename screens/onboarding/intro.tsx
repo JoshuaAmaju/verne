@@ -5,7 +5,6 @@ import React, {createRef, useState} from 'react';
 import {
   Dimensions,
   FlatList,
-  StatusBar,
   StyleSheet,
   TouchableNativeFeedback,
   View,
@@ -13,6 +12,7 @@ import {
 import {set} from '../../shared/stores/onborading';
 import Image from 'react-native-fast-image';
 import Button from '../../shared/components/Button';
+import {StatusBar} from '@shared/components/StatusBar';
 
 const {width} = Dimensions.get('screen');
 

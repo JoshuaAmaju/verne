@@ -1,13 +1,7 @@
 import {Divider, Text, Toggle} from '@ui-kitten/components';
 import {HStack, VStack} from 'native-base';
 import React from 'react';
-import {
-  Image,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {Image, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import Button from '../../../../shared/components/Button';
 import {ChevronRight} from '../../../../shared/exports/icons';
 import {COVER} from '../../../dummy.data';
@@ -18,6 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import authStore, {logout} from '@shared/stores/auth';
 import {abbreviate} from '@shared/utils';
 import {Colors} from 'react-native-paper';
+import {StatusBar} from '@shared/components/StatusBar';
 
 export default function Summary() {
   const nav = useNavigation();

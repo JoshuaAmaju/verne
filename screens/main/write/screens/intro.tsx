@@ -1,9 +1,10 @@
 import {Text} from '@ui-kitten/components';
 import React from 'react';
-import {StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 
 import ChevronRight from '@assets/icons/chevron.right.svg';
 import {useNavigation} from '@react-navigation/native';
+import {StatusBar} from '@shared/components/StatusBar';
 
 const icon = {
   width: 15,
@@ -20,6 +21,7 @@ export default function Intro() {
 
       <View>
         <TouchableOpacity
+          // onPress={() => nav.navigate('Writer.WriteStory' as any)}
           onPress={() => nav.navigate('Writer.WriteStory' as any)}>
           <View style={styles.item}>
             <Text category="h2" style={styles.label}>

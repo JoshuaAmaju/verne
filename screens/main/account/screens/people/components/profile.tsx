@@ -1,12 +1,21 @@
-import {Avatar, Text} from '@ui-kitten/components';
+import {http} from '@shared/http';
+import {Avatar, Spinner, Text} from '@ui-kitten/components';
 import {HStack, VStack} from 'native-base';
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {useTheme} from 'react-native-paper';
+import {useMutation} from 'react-query';
 import {COVER} from '../../../../../dummy.data';
 
 export default function Profile() {
   const {primary} = useTheme().colors;
+
+  const action = useMutation(async () => {
+    const res = await http.post('/user/relation/action', {userId: ''});
+    return res.data;
+  });
+
+  console.log('action', action.data);
 
   return (
     <HStack py={6} space={4} alignItems="center" justifyContent="space-between">
@@ -22,9 +31,13 @@ export default function Profile() {
 
       <TouchableOpacity
         style={[styles.btn, {borderColor: primary}, styles.disabled]}>
-        <Text category="p2" style={[{color: '#04100F'}, label.disabled]}>
-          Follow
-        </Text>
+        <HStack space={3} alignItems="center">
+          <Text category="p2" style={[{color: '#04100F'}, label.disabled]}>
+            Follow
+          </Text>
+
+          {action.isLoading && <Spinner size="tiny" />}
+        </HStack>
       </TouchableOpacity>
     </HStack>
   );

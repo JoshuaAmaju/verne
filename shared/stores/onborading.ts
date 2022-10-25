@@ -21,6 +21,7 @@ export const key = 'verne/onboarding';
 
 export enum Action {
   next = 'next',
+  reset = 'reset',
   hydrate = 'hydrate',
   complete = 'complete',
 }
@@ -66,6 +67,10 @@ export const config = createMachine<Ctx, Events, States>(
     id: 'root',
     initial: State.unknown,
 
+    on: {
+      [Action.reset]: State.notOnboarded,
+    },
+
     states: {
       [State.unknown]: {
         initial: State.hydrating,
@@ -107,7 +112,7 @@ export const config = createMachine<Ctx, Events, States>(
         },
       },
       [State.onboarded]: {
-        type: 'final',
+        // type: 'final',
         id: State.onboarded,
       },
     },

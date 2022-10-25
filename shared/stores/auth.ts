@@ -9,7 +9,7 @@ export enum Strategy {
 
 export enum Role {
   reader = 'reader',
-  writer = 'writer',
+  writer = 'publisher',
   both = 'both',
 }
 

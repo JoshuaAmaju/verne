@@ -1,5 +1,5 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
+// import {StatusBar} from 'react-native';
 import {useTheme} from 'react-native-paper';
 
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
@@ -9,6 +9,7 @@ import MyCommunity from './screens/mycommunity';
 import Explore from './screens/explore';
 import Details from './screens/detail';
 import BackButton from '../../../shared/components/BackButton';
+import {StatusBar} from '@shared/components/StatusBar';
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();

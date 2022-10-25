@@ -5,7 +5,7 @@ export type Res<T> = {
   statusCode: number;
 };
 
-export type Pageable<T> = T & {
+export type Paginated<T> = T & {
   page: number;
   pageSize: number;
   totalPages: number;

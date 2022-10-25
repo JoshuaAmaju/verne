@@ -19,13 +19,14 @@ import Community from './community';
 import Explore from './explore';
 import Home from './home';
 import Library from './library';
-import Write from './write';
+import Writer from './write';
 
 const Tab = createBottomTabNavigator();
 
 export default function Tabs() {
   return (
     <Tab.Navigator
+      sceneContainerStyle={{backgroundColor: '#fff'}}
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           let Icon = focused ? HomeIconFill : HomeIcon;
@@ -47,7 +48,7 @@ export default function Tabs() {
               Icon = focused ? PersonIconFill : PersonIcon;
               break;
 
-            case 'Write':
+            case 'Writer':
               Icon = focused ? WriteIconFill : WriteIcon;
               break;
 
@@ -73,7 +74,11 @@ export default function Tabs() {
       })}>
       <Tab.Screen name="Home" component={Home} />
 
-      <Tab.Screen name="Explore" component={Explore} />
+      <Tab.Screen
+        name="Explore"
+        component={Explore}
+        options={{headerShown: true}}
+      />
 
       <Tab.Screen
         name="Library"
@@ -85,7 +90,7 @@ export default function Tabs() {
 
       <Tab.Screen name="Account" component={Account} />
 
-      <Tab.Screen name="Write" component={Write} />
+      <Tab.Screen name="Writer" component={Writer} options={{title: 'Write'}} />
     </Tab.Navigator>
   );
 }

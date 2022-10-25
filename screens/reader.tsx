@@ -1,4 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
+import {StatusBar} from '@shared/components/StatusBar';
 import {Text} from '@ui-kitten/components';
 import {HStack, Slider, VStack} from 'native-base';
 import React, {
@@ -14,7 +15,6 @@ import {
   LayoutRectangle,
   SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   TouchableOpacity,
   View,

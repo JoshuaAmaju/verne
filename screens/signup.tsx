@@ -121,6 +121,11 @@ export default function Signup() {
     [setValue, values],
   );
 
+  const onSubmit = useCallback(() => {
+    send(onboarding.Action.reset);
+    submit();
+  }, [send, submit]);
+
   useEffect(() => {
     if (submitted && data) {
       showMessage({
@@ -200,7 +205,7 @@ export default function Signup() {
                 ref={passwordRef}
                 placeholder="Password"
                 value={values.password}
-                onSubmitEditing={() => submit()}
+                onSubmitEditing={onSubmit}
                 onChangeText={setFieldValue('password')}
                 {...(!!errors?.password && {
                   status: 'danger',
@@ -224,10 +229,7 @@ export default function Signup() {
                     />
                   ),
                 })}
-                onPress={() => {
-                  submit();
-                  // nav.navigate('Setup.Initial' as any);
-                }}>
+                onPress={onSubmit}>
                 Join for free
               </Button>
 

@@ -1,12 +1,10 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {IndexPath, MenuItem, OverflowMenu, Text} from '@ui-kitten/components';
 import {Box, HStack, VStack} from 'native-base';
-import React, {useCallback, useLayoutEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   FlatList,
-  SafeAreaView,
   ScrollView,
-  StatusBar,
   StyleSheet,
   TouchableNativeFeedback,
   TouchableOpacity,
@@ -18,56 +16,86 @@ import Settings from '../../../../assets/icons/settings.svg';
 import ChatSquare from '../../../../assets/icons/square.chat.bubble.svg';
 import Star from '../../../../assets/icons/star.svg';
 import colors from '../../../../theme/colors';
-import Story from '../../../components/story';
 import Section from '../../../components/section';
-import {CATEGORIES, DATA} from '../../../dummy.data';
+import Story from '../../../components/story';
+import {DATA} from '../../../dummy.data';
 
-import {useQuery} from 'react-query';
+import {useHeaderHeight} from '@react-navigation/elements';
+
 import {abbreviate} from '@shared/utils';
+import {useQuery} from 'react-query';
 
-import * as Story from '@shared/services/story';
+import {http} from '@shared/http';
+import {Paginated} from '@shared/types/server_response';
+import {StoryWithAuthor} from '@shared/types/story';
+import {StatusBar} from '@shared/components/StatusBar';
 // import * as Category from '@shared/services/category';
 
-export default function Home() {
+type ICategory = {
+  _id: string;
+  name: string;
+  imageUrl: string;
+  description: string;
+};
+
+export default function Category() {
   const hero = DATA[0];
+
   const nav = useNavigation();
-  const {params = {} as any} = useRoute();
 
-  const {id} = params;
+  const {id} = (useRoute().params ?? {}) as any;
 
-  const category = CATEGORIES.find(c => c.id === id);
+  const headerHeight = useHeaderHeight();
+
+  // const category = CATEGORIES.find(c => c.id === id);
 
   const [sortVisible, setVisible] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<IndexPath>();
 
-  // const category = useQuery(['category', id], () => Category);
+  const category = useQuery(['category', 1, id], async () => {
+    const res = await http.get<ICategory>(`/category/find/${id}`);
+    return res.data;
+  });
+
+  const stories = useQuery(['category', id], async () => {
+    const res = await http.get<Paginated<{stories: Array<StoryWithAuthor>}>>(
+      `/story/category/${id}`,
+    );
+
+    return res.data;
+  });
+
+  // console.log('here', JSON.stringify(_stories.data));
 
   // const recent = useQuery(['recent_stories_by_category', id], () => {
   //   return Story.get_recentlyAdded();
   // });
 
-  const stories = useQuery(['stories_by_category', id], () => {
-    return Story.get_byCategory(id);
-  });
+  // const stories = useQuery(['stories_by_category', id], () => {
+  //   return StoryService.get_byCategory(id);
+  // });
+
+  console.log(stories.data);
 
   const onItemSelect = useCallback<(index: IndexPath) => void>(index => {
     setSelectedIndex(index);
     setVisible(false);
   }, []);
 
-  useLayoutEffect(() => {
-    if (category) {
-      nav.setOptions({title: category.name});
-    }
-  }, [category, nav]);
+  // useLayoutEffect(() => {
+  //   if (category) {
+  //     nav.setOptions({title: category.name});
+  //   }
+  // }, [category, nav]);
 
   return (
     <>
       <StatusBar translucent backgroundColor="transparent" />
 
-      <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
-        <SafeAreaView style={styles.hero}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={[styles.hero]}>
           <Image source={hero.cover} style={StyleSheet.absoluteFillObject} />
+
           <View
             style={[
               StyleSheet.absoluteFillObject,
@@ -75,7 +103,16 @@ export default function Home() {
             ]}
           />
 
-          <VStack space={1} alignItems="center">
+          <VStack
+            py={6}
+            h="full"
+            space={2}
+            justifyContent="space-between"
+            style={{paddingTop: headerHeight}}>
+            <HStack mx={6} my={3}>
+              <Text category="h1">{category.data?.name}</Text>
+            </HStack>
+
             <VStack p={4} space={2} alignItems="center">
               <Text category="h1" style={styles.title}>
                 {hero.title}
@@ -84,31 +121,25 @@ export default function Home() {
               <Text category="h2" style={styles.subtitle}>
                 {hero.subtitle}
               </Text>
-            </VStack>
 
-            <FlatList
-              horizontal
-              data={hero.categories}
-              contentContainerStyle={{padding: 16}}
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={item => item.id.toString()}
-              ItemSeparatorComponent={() => <Box width={2} />}
-              renderItem={({item}) => {
-                return (
-                  <TouchableOpacity
-                    // @ts-ignore
-                    onPress={() => nav.navigate('Category', item)}>
-                    <View style={styles.categoryPill}>
-                      <Text category="label" style={styles.pillLabel}>
-                        {item.name}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                );
-              }}
-            />
+              <HStack space={2}>
+                {hero.categories.slice(0, 4).map(item => {
+                  return (
+                    <TouchableOpacity
+                      // @ts-ignore
+                      onPress={() => nav.navigate('Category', item)}>
+                      <View style={styles.categoryPill}>
+                        <Text category="label" style={styles.pillLabel}>
+                          {item.name}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })}
+              </HStack>
+            </VStack>
           </VStack>
-        </SafeAreaView>
+        </View>
 
         <VStack space={4} py={4}>
           <Section title="Most Rated">
@@ -128,7 +159,9 @@ export default function Home() {
               space={1}
               alignItems="center"
               justifyContent="space-between">
-              <Text category="h6">All Action stories</Text>
+              <Text category="h6">
+                {category.data ? `All ${category.data.name} stories` : ''}
+              </Text>
 
               <OverflowMenu
                 visible={sortVisible}
@@ -150,7 +183,7 @@ export default function Home() {
             </HStack>
 
             <VStack space={6}>
-              {stories.data?.map(story => {
+              {stories.data?.stories.map(story => {
                 return (
                   <HStack key={story._id} space={6} px={6}>
                     <Image
@@ -162,7 +195,7 @@ export default function Home() {
                       <VStack space={2}>
                         <VStack space="0.5">
                           <Text category="s1">{story.title}</Text>
-                          <Text category="c1">{story.author}</Text>
+                          <Text category="c1">{story.author.fullname}</Text>
                         </VStack>
 
                         <HStack space={8}>
@@ -219,8 +252,8 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
   },
   hero: {
-    height: 300,
-    justifyContent: 'flex-end',
+    height: 400,
+    // justifyContent: 'flex-end',
   },
   entityCard: {
     width: 180,
